@@ -1,0 +1,1650 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 Annual Conference - BCF Poultry | Financial & Supply Chain Summit</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #FF6B00;
+            --secondary-color: #FFC107;
+            --accent-color: #28A745;
+            --dark-color: #1A1A2E;
+            --light-bg: #F8F9FA;
+            --dark-bg: #0F0F1E;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+            overflow-x: hidden;
+            padding-top: 76px;
+        }
+        
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 100px;
+            right: 30px;
+            z-index: 1000;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+        }
+        
+        .theme-toggle:hover {
+            transform: rotate(180deg);
+        }
+        
+        /* Navigation */
+        .navbar {
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+            padding: 1rem 0;
+        }
+        
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.95) !important;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+        
+        [data-bs-theme="dark"] .navbar.scrolled {
+            background: rgba(15, 15, 30, 0.95) !important;
+        }
+        
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            margin: 0 0.5rem;
+            position: relative;
+            transition: color 0.3s;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transition: width 0.3s;
+        }
+        
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+        
+        .nav-link.active {
+            color: var(--primary-color) !important;
+        }
+        
+        /* Hero Section */
+        .event-hero {
+            background: linear-gradient(135deg, rgba(255,107,0,0.95) 0%, rgba(255,193,7,0.95) 100%), url('https://via.placeholder.com/1920x800/FF6B00/FFFFFF?text=Conference+Background');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 6rem 0 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .event-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        .event-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+        
+        .event-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+        
+        .event-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            margin-bottom: 2rem;
+            max-width: 800px;
+        }
+        
+        .event-meta {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        
+        .event-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.1rem;
+        }
+        
+        .event-meta-item i {
+            font-size: 1.5rem;
+        }
+        
+        /* Countdown */
+        .countdown-section {
+            background: white;
+            padding: 3rem 0;
+            margin-top: -3rem;
+            position: relative;
+            z-index: 10;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+        
+        [data-bs-theme="dark"] .countdown-section {
+            background: #1a1a2e;
+        }
+        
+        .countdown-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .countdown-box {
+            text-align: center;
+            padding: 1.5rem 2rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 15px;
+            color: white;
+            min-width: 120px;
+        }
+        
+        .countdown-value {
+            font-size: 3rem;
+            font-weight: 800;
+            display: block;
+            line-height: 1;
+        }
+        
+        .countdown-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 0.5rem;
+        }
+        
+        /* Section Styling */
+        .section-padding {
+            padding: 5rem 0;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            color: #6c757d;
+            margin-bottom: 4rem;
+            font-size: 1.1rem;
+        }
+        
+        [data-bs-theme="dark"] .section-subtitle {
+            color: #adb5bd;
+        }
+        
+        /* Topics Grid */
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .topic-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        [data-bs-theme="dark"] .topic-card {
+            background: #1a1a2e;
+        }
+        
+        .topic-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-color);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .topic-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+        
+        .topic-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        /* Audience Section */
+        .audience-section {
+            background: linear-gradient(135deg, rgba(255,107,0,0.05), rgba(255,193,7,0.05));
+        }
+        
+        [data-bs-theme="dark"] .audience-section {
+            background: linear-gradient(135deg, rgba(255,107,0,0.02), rgba(255,193,7,0.02));
+        }
+        
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .audience-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+        
+        [data-bs-theme="dark"] .audience-card {
+            background: #1a1a2e;
+        }
+        
+        .audience-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        
+        .audience-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, rgba(255,107,0,0.1), rgba(255,193,7,0.1));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+        }
+        
+        /* Speakers */
+        .speaker-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+        }
+        
+        [data-bs-theme="dark"] .speaker-card {
+            background: #1a1a2e;
+        }
+        
+        .speaker-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .speaker-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+        
+        .speaker-info {
+            padding: 1.5rem;
+        }
+        
+        .speaker-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .speaker-title {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        /* Pricing */
+        .pricing-section {
+            background: linear-gradient(135deg, var(--dark-color), #16213E);
+            color: white;
+        }
+        
+        .pricing-card {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s;
+            color: #1A1A2E;
+        }
+        
+        [data-bs-theme="dark"] .pricing-card {
+            background: #1a1a2e;
+            color: white;
+        }
+        
+        .pricing-card.featured {
+            transform: scale(1.05);
+            border: 3px solid var(--primary-color);
+        }
+        
+        .pricing-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 0.5rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .pricing-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .pricing-price {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+        }
+        
+        .pricing-price span {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #6c757d;
+        }
+        
+        .pricing-features {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+        
+        .pricing-features li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        [data-bs-theme="dark"] .pricing-features li {
+            border-bottom-color: #2a2a3e;
+        }
+        
+        .pricing-features li i {
+            color: var(--accent-color);
+        }
+        
+        /* Booking Form */
+        .booking-section {
+            background: var(--light-bg);
+        }
+        
+        [data-bs-theme="dark"] .booking-section {
+            background: var(--dark-bg);
+        }
+        
+        .booking-form-card {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+        
+        [data-bs-theme="dark"] .booking-form-card {
+            background: #1a1a2e;
+        }
+        
+        .form-group-custom {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label-custom {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        
+        .required-field::after {
+            content: ' *';
+            color: #DC3545;
+        }
+        
+        .form-control-custom, .form-select-custom {
+            padding: 0.75rem 1rem;
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s;
+        }
+        
+        .form-control-custom:focus, .form-select-custom:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(255,107,0,0.25);
+        }
+        
+        /* Venue */
+        .venue-info {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+        
+        [data-bs-theme="dark"] .venue-info {
+            background: #1a1a2e;
+        }
+        
+        .venue-detail {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            align-items: flex-start;
+        }
+        
+        .venue-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            flex-shrink: 0;
+        }
+        
+        /* Buttons */
+        .btn-primary-custom {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(255,107,0,0.3);
+        }
+        
+        .btn-primary-custom:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255,107,0,0.4);
+            color: white;
+        }
+        
+        .btn-lg-custom {
+            padding: 1.25rem 3rem;
+            font-size: 1.1rem;
+        }
+        
+        /* FAQ */
+        .faq-item {
+            background: white;
+            border-radius: 15px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        [data-bs-theme="dark"] .faq-item {
+            background: #1a1a2e;
+        }
+        
+        .faq-question {
+            padding: 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+        
+        .faq-question:hover {
+            background: rgba(255,107,0,0.05);
+        }
+        
+        .faq-answer {
+            padding: 0 1.5rem 1.5rem;
+            color: #6c757d;
+            display: none;
+        }
+        
+        [data-bs-theme="dark"] .faq-answer {
+            color: #adb5bd;
+        }
+        
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+        
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 3rem 0 2rem;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 2rem;
+            padding-top: 2rem;
+            text-align: center;
+            color: #6c757d;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .event-title {
+                font-size: 2.5rem;
+            }
+            
+            .countdown-box {
+                min-width: 80px;
+                padding: 1rem 1.5rem;
+            }
+            
+            .countdown-value {
+                font-size: 2rem;
+            }
+            
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+            
+            .booking-form-card {
+                padding: 2rem 1.5rem;
+            }
+        }
+        
+        /* Stats */
+        .stats-row {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            flex-wrap: wrap;
+            margin: 3rem 0;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            color: #6c757d;
+        }
+        
+        [data-bs-theme="dark"] .stat-label {
+            color: #adb5bd;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Theme">
+        <i class="bi bi-moon-stars-fill" id="theme-icon"></i>
+    </button>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-building me-2"></i>BCF
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="booking.html">Booking</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="events.html">Events</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#contact">Contact</a></li>
+                    <li class="nav-item ms-lg-3">
+                        <a href="#book-now" class="btn btn-primary-custom">Book Seat</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="event-hero">
+        <div class="container position-relative" style="z-index: 2;">
+            <div class="row align-items-center">
+                <div class="col-lg-8" data-aos="fade-right">
+                    <div class="event-badge">
+                        <i class="bi bi-calendar-event-fill me-2"></i>July 15-17, 2026 | Ibadan, Nigeria
+                    </div>
+                    <h1 class="event-title">2026 Annual Financial & Supply Chain Conference</h1>
+                    <p class="event-subtitle">
+                        Bringing together farmers, banks, investors, slaughterhouses, logistics suppliers, 
+                        distributors, and customers from across Nigeria and Sub-Saharan Africa to transform 
+                        the poultry industry.
+                    </p>
+                    <div class="event-meta">
+                        <div class="event-meta-item">
+                            <i class="bi bi-geo-alt-fill"></i>
+                            <span>International Conference Center, Ibadan</span>
+                        </div>
+                        <div class="event-meta-item">
+                            <i class="bi bi-people-fill"></i>
+                            <span>2000+ Expected Attendees</span>
+                        </div>
+                        <div class="event-meta-item">
+                            <i class="bi bi-mic-fill"></i>
+                            <span>50+ Industry Experts</span>
+                        </div>
+                    </div>
+                    <div class="d-flex gap-3 flex-wrap">
+                        <a href="#book-now" class="btn btn-light btn-lg-custom">
+                            <i class="bi bi-ticket-perforated-fill me-2"></i>Reserve Your Seat
+                        </a>
+                        <a href="#agenda" class="btn btn-outline-light btn-lg-custom">
+                            <i class="bi bi-list-ul me-2"></i>View Agenda
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Countdown Section -->
+    <div class="container">
+        <div class="countdown-section" data-aos="fade-up">
+            <h3 class="text-center mb-4" style="color: var(--dark-color); font-weight: 700;">
+                <i class="bi bi-clock-history me-2"></i>Conference Starts In
+            </h3>
+            <div class="countdown-container">
+                <div class="countdown-box">
+                    <span class="countdown-value" id="days">000</span>
+                    <div class="countdown-label">Days</div>
+                </div>
+                <div class="countdown-box">
+                    <span class="countdown-value" id="hours">00</span>
+                    <div class="countdown-label">Hours</div>
+                </div>
+                <div class="countdown-box">
+                    <span class="countdown-value" id="minutes">00</span>
+                    <div class="countdown-label">Minutes</div>
+                </div>
+                <div class="countdown-box">
+                    <span class="countdown-value" id="seconds">00</span>
+                    <div class="countdown-label">Seconds</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Conference Stats -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="stats-row" data-aos="fade-up">
+                <div class="stat-item">
+                    <span class="stat-number">50+</span>
+                    <span class="stat-label">Expert Speakers</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">30+</span>
+                    <span class="stat-label">Workshop Sessions</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">100+</span>
+                    <span class="stat-label">Exhibitors</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">2000+</span>
+                    <span class="stat-label">Attendees</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">15</span>
+                    <span class="stat-label">African Countries</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Conference Topics -->
+    <section class="section-padding" id="agenda">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Conference Focus Areas</h2>
+            <p class="section-subtitle" data-aos="fade-up">
+                Comprehensive coverage of critical topics shaping the future of poultry supply chain in Africa
+            </p>
+            
+            <div class="topics-grid">
+                <div class="topic-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="topic-icon">
+                        <i class="bi bi-cash-stack"></i>
+                    </div>
+                    <h3 class="topic-title">Feed Support & Financing</h3>
+                    <p>Exploring innovative financing models, feed subsidy programs, investment opportunities, 
+                    and sustainable feed supply chain solutions for small to large-scale poultry farmers.</p>
+                    <ul class="list-unstyled mt-3">
+                        <li><i class="bi bi-check-circle-fill text-success me-2"></i>Feed credit facilities</li>
+                        <li><i class="bi bi-check-circle-fill text-success me-2"></i>Investor-farmer matching</li>
+                        <li><i class="bi bi-check-circle-fill text-success me-2"></i>Cost optimization strategies</li>
+                    </ul>
+                </div>
+
+                <div class="topic-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="topic-icon">
+                        <i class="bi bi-truck"></i>
+                    </div>
+                    <h3 class="topic-title">Logistics & Resource Import</h3>
+                    <p>Streamlining poultry logistics, cold chain management, import procedures for equipment 
+                    and feed ingredients, and distribution network optimization across West Africa.</p>
+                    <ul class="list-unstyled mt-3">
+                        <li><i class="bi bi-check-circle-fill text-success me-2"></i>Cold chain solutions</li>
+                        <li><i class="bi bi-check-circle-fill text-success me-2"></i>Import documentation</li>
+                        <li><i class="bi bi-check-circle-fill text-success me-2"></i>Last-mile delivery</li>
+                    </ul>
+                </div>
+
+                <div class="topic-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="topic-icon">
+                        <i class="bi bi-graph-up-arrow"></i>
+                    </div>
+                    <h3 class="topic-title">Quality Scaling & Standards</h3>
+                    <p>Implementing international quality standards, certification processes, biosecurity measures, 
+                    and scaling operations while maintaining product quality and food safety.</p>
+                    <ul class="list-unstyled mt-3">
+                        <li><i class="bi bi-check-circle-fill text-success me-2"></i>Quality certification</li>
+                        <li><i class="bi bi-check-circle-fill text-success me-2"></i>Biosecurity protocols</li>
+                        <li><i class="bi bi-check-circle-fill text-success me-2"></i>Best practices</li>
+                    </ul>
+                </div>
+
+                <div class="topic-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="topic-icon">
+                        <i class="bi bi-bank"></i>
+                    </div>
+                    <h3 class="topic-title">Banking & Investment</h3>
+                    <p>Connecting farmers with financial institutions, exploring venture capital opportunities, 
+                    understanding agricultural loans, and building bankable poultry business models.</p>
+                    <ul class="list-unstyled mt-3">
+                        <li><i class="bi bi-check-circle-fill text-success me-2"></i>Agricultural loans</li>
+                        <li><i class="bi bi-check-circle-fill text-success me-2"></i>VC funding</li>
+                        <li><i class="bi bi-check-circle-fill text-success me-2"></i>ROI optimization</li>
+                    </ul>
+                </div>
+
+                <div class="topic-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="topic-icon">
+                        <i class="bi bi-globe-africa"></i>
+                    </div>
+                    <h3 class="topic-title">Regional Trade & Export</h3>
+                    <p>Navigating AfCFTA opportunities, cross-border trade regulations, export procedures, 
+                    and building pan-African poultry supply chains for regional and international markets.</p>
+                    <ul class="list-unstyled mt-3">
+                        <li><i class="bi bi-check-circle-fill text-success me-2"></i>AfCFTA opportunities</li>
+                        <li><i class="bi bi-check-circle-fill text-success me-2"></i>Export documentation</li>
+                        <li><i class="bi bi-check-circle-fill text-success me-2"></i>Market access</li>
+                    </ul>
+                </div>
+
+                <div class="topic-card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="topic-icon">
+                        <i class="bi bi-cpu"></i>
+                    </div>
+                    <h3 class="topic-title">Technology & Innovation</h3>
+                    <p>Digital transformation in poultry farming, IoT sensors, farm management software, 
+                    blockchain for traceability, and AI-driven decision making for modern poultry operations.</p>
+                    <ul class="list-unstyled mt-3">
+                        <li><i class="bi bi-check-circle-fill text-success me-2"></i>Farm management tech</li>
+                        <li><i class="bi bi-check-circle-fill text-success me-2"></i>IoT & automation</li>
+                        <li><i class="bi bi-check-circle-fill text-success me-2"></i>Digital payments</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Target Audience -->
+    <section class="section-padding audience-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Who Should Attend</h2>
+            <p class="section-subtitle" data-aos="fade-up">
+                This conference brings together all stakeholders in the poultry value chain
+            </p>
+            
+            <div class="audience-grid">
+                <div class="audience-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="audience-icon">
+                        <i class="bi bi-house-door-fill"></i>
+                    </div>
+                    <h4>Poultry Farmers</h4>
+                    <p>Small, medium, and large-scale farmers looking to scale operations, access funding, 
+                    and learn best practices from industry leaders.</p>
+                </div>
+
+                <div class="audience-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="audience-icon">
+                        <i class="bi bi-bank2"></i>
+                    </div>
+                    <h4>Banks & Financial Institutions</h4>
+                    <p>Discover agricultural financing opportunities, understand farmer needs, 
+                    and develop tailored financial products for the poultry sector.</p>
+                </div>
+
+                <div class="audience-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="audience-icon">
+                        <i class="bi bi-briefcase-fill"></i>
+                    </div>
+                    <h4>Investors & VCs</h4>
+                    <p>Explore high-ROI investment opportunities in Africa's growing poultry industry, 
+                    meet vetted farmers, and understand market dynamics.</p>
+                </div>
+
+                <div class="audience-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="audience-icon">
+                        <i class="bi bi-scissors"></i>
+                    </div>
+                    <h4>Slaughterhouses</h4>
+                    <p>Learn about processing innovations, quality standards, hygiene protocols, 
+                    and connect with reliable bird suppliers.</p>
+                </div>
+
+                <div class="audience-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="audience-icon">
+                        <i class="bi bi-truck-front"></i>
+                    </div>
+                    <h4>Logistics Suppliers</h4>
+                    <p>Understand cold chain requirements, connect with poultry businesses, 
+                    and explore partnerships in feed and product distribution.</p>
+                </div>
+
+                <div class="audience-card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="audience-icon">
+                        <i class="bi bi-shop-window"></i>
+                    </div>
+                    <h4>Distributors & Retailers</h4>
+                    <p>Source quality poultry products, understand market trends, 
+                    and build relationships with producers and processors.</p>
+                </div>
+
+                <div class="audience-card" data-aos="fade-up" data-aos-delay="700">
+                    <div class="audience-icon">
+                        <i class="bi bi-cart-fill"></i>
+                    </div>
+                    <h4>Customers & Buyers</h4>
+                    <p>Restaurant owners, hotel chains, supermarkets, and bulk buyers 
+                    looking for reliable frozen chicken and egg suppliers.</p>
+                </div>
+
+                <div class="audience-card" data-aos="fade-up" data-aos-delay="800">
+                    <div class="audience-icon">
+                        <i class="bi bi-mortarboard-fill"></i>
+                    </div>
+                    <h4>Researchers & Academia</h4>
+                    <p>Share research findings, collaborate on industry challenges, 
+                    and bridge the gap between theory and practice.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Speakers -->
+    <section class="section-padding">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Featured Speakers</h2>
+            <p class="section-subtitle" data-aos="fade-up">
+                Learn from industry pioneers and thought leaders
+            </p>
+            
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="speaker-card">
+                        <img src="https://via.placeholder.com/300x300/FF6B00/FFFFFF?text=Speaker+1" alt="Speaker" class="speaker-image">
+                        <div class="speaker-info">
+                            <h3 class="speaker-name">Dr. Adebayo Ogundimu</h3>
+                            <div class="speaker-title">Poultry Industry Expert</div>
+                            <p class="text-muted small">Former Director, National Veterinary Research Institute</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="speaker-card">
+                        <img src="https://via.placeholder.com/300x300/FFC107/1A1A2E?text=Speaker+2" alt="Speaker" class="speaker-image">
+                        <div class="speaker-info">
+                            <h3 class="speaker-name">Mrs. Folake Adeyemi</h3>
+                            <div class="speaker-title">Agribusiness Investor</div>
+                            <p class="text-muted small">CEO, West Africa Poultry Investment Fund</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="speaker-card">
+                        <img src="https://via.placeholder.com/300x300/28A745/FFFFFF?text=Speaker+3" alt="Speaker" class="speaker-image">
+                        <div class="speaker-info">
+                            <h3 class="speaker-name">Prof. Kwame Asante</h3>
+                            <div class="speaker-title">Supply Chain Specialist</div>
+                            <p class="text-muted small">Ghana Institute of Management</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="400">
+                    <div class="speaker-card">
+                        <img src="https://via.placeholder.com/300x300/DC3545/FFFFFF?text=Speaker+4" alt="Speaker" class="speaker-image">
+                        <div class="speaker-info">
+                            <h3 class="speaker-name">Engr. Ibrahim Bello</h3>
+                            <div class="speaker-title">Feed Production Expert</div>
+                            <p class="text-muted small">MD, Continental Feed Mills Ltd</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-5">
+                <button class="btn btn-outline-custom btn-lg">
+                    <i class="bi bi-people-fill me-2"></i>View All Speakers
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="section-padding pricing-section" id="pricing">
+        <div class="container">
+            <h2 class="section-title text-white" data-aos="fade-up">Conference Packages</h2>
+            <p class="section-subtitle text-white-50" data-aos="fade-up">
+                Choose the package that best suits your needs
+            </p>
+            
+            <div class="row g-4 align-items-center">
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="pricing-card">
+                        <h3 class="pricing-name">Standard Pass</h3>
+                        <div class="pricing-price">₦50,000<span>/person</span></div>
+                        <ul class="pricing-features">
+                            <li><i class="bi bi-check-circle-fill"></i>Access to all keynote sessions</li>
+                            <li><i class="bi bi-check-circle-fill"></i>Conference materials</li>
+                            <li><i class="bi bi-check-circle-fill"></i>Networking sessions</li>
+                            <li><i class="bi bi-check-circle-fill"></i>Exhibition hall access</li>
+                            <li><i class="bi bi-check-circle-fill"></i>Certificate of attendance</li>
+                            <li><i class="bi bi-check-circle-fill"></i>Refreshments & lunch</li>
+                            <li class="text-muted"><i class="bi bi-x-circle"></i>Workshop access</li>
+                            <li class="text-muted"><i class="bi bi-x-circle"></i>VIP networking dinner</li>
+                        </ul>
+                        <button class="btn btn-outline-custom w-100" onclick="selectPackage('standard')">
+                            Select Package
+                        </button>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="pricing-card featured">
+                        <div class="pricing-badge">Most Popular</div>
+                        <h3 class="pricing-name">Premium Pass</h3>
+                        <div class="pricing-price">₦100,000<span>/person</span></div>
+                        <ul class="pricing-features">
+                            <li><i class="bi bi-check-circle-fill"></i>Everything in Standard</li>
+                            <li><i class="bi bi-check-circle-fill"></i>Access to all workshops</li>
+                            <li><i class="bi bi-check-circle-fill"></i>Priority seating</li>
+                            <li><i class="bi bi-check-circle-fill"></i>VIP networking dinner</li>
+                            <li><i class="bi bi-check-circle-fill"></i>1-on-1 investor meetings</li>
+                            <li><i class="bi bi-check-circle-fill"></i>Conference recordings</li>
+                            <li><i class="bi bi-check-circle-fill"></i>Exhibitor booth discounts</li>
+                            <li><i class="bi bi-check-circle-fill"></i>Year-round platform access</li>
+                        </ul>
+                        <button class="btn btn-primary-custom w-100" onclick="selectPackage('premium')">
+                            Select Package
+                        </button>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="pricing-card">
+                        <h3 class="pricing-name">Corporate Pass</h3>
+                        <div class="pricing-price">₦250,000<span>/5 persons</span></div>
+                        <ul class="pricing-features">
+                            <li><i class="bi bi-check-circle-fill"></i>5 Premium passes</li>
+                            <li><i class="bi bi-check-circle-fill"></i>Company branding opportunity</li>
+                            <li><i class="bi bi-check-circle-fill"></i>Exhibition booth (2x2m)</li>
+                            <li><i class="bi bi-check-circle-fill"></i>Speaking opportunity</li>
+                            <li><i class="bi bi-check-circle-fill"></i>Private meeting room</li>
+                            <li><i class="bi bi-check-circle-fill"></i>Brand visibility in materials</li>
+                            <li><i class="bi bi-check-circle-fill"></i>Media interview opportunity</li>
+                            <li><i class="bi bi-check-circle-fill"></i>Post-event report</li>
+                        </ul>
+                        <button class="btn btn-outline-custom w-100" onclick="selectPackage('corporate')">
+                            Select Package
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Venue Information -->
+    <section class="section-padding">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Venue & Location</h2>
+            <p class="section-subtitle" data-aos="fade-up">
+                International Conference Center, Ibadan, Oyo State, Nigeria
+            </p>
+            
+            <div class="row">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <div class="venue-info">
+                        <div class="venue-detail">
+                            <div class="venue-icon">
+                                <i class="bi bi-geo-alt-fill"></i>
+                            </div>
+                            <div>
+                                <h4>Address</h4>
+                                <p class="mb-0">International Conference Center<br>
+                                Ring Road, Ibadan<br>
+                                Oyo State, Nigeria</p>
+                            </div>
+                        </div>
+                        
+                        <div class="venue-detail">
+                            <div class="venue-icon">
+                                <i class="bi bi-calendar3"></i>
+                            </div>
+                            <div>
+                                <h4>Dates</h4>
+                                <p class="mb-0">July 15-17, 2026<br>
+                                3 Days of intensive learning & networking<br>
+                                9:00 AM - 5:00 PM daily</p>
+                            </div>
+                        </div>
+                        
+                        <div class="venue-detail">
+                            <div class="venue-icon">
+                                <i class="bi bi-car-front-fill"></i>
+                            </div>
+                            <div>
+                                <h4>Transportation</h4>
+                                <p class="mb-0">• 15 mins from Ibadan Airport<br>
+                                • Shuttle service from major hotels<br>
+                                • Ample parking available</p>
+                            </div>
+                        </div>
+                        
+                        <div class="venue-detail">
+                            <div class="venue-icon">
+                                <i class="bi bi-hotel"></i>
+                            </div>
+                            <div>
+                                <h4>Accommodation</h4>
+                                <p class="mb-0">Special rates at partner hotels<br>
+                                • Premier Hotel Ibadan<br>
+                                • Ibadan Marriott Hotel<br>
+                                • Various budget options</p>
+                            </div>
+                        </div>
+                        
+                        <button class="btn btn-primary-custom mt-3">
+                            <i class="bi bi-map-fill me-2"></i>Get Directions
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6" data-aos="fade-left">
+                    <div style="background: linear-gradient(135deg, rgba(255,107,0,0.1), rgba(255,193,7,0.1)); border-radius: 20px; padding: 3rem; height: 100%; display: flex; align-items: center; justify-content: center;">
+                        <div class="text-center">
+                            <i class="bi bi-building-check" style="font-size: 8rem; color: var(--primary-color); opacity: 0.3;"></i>
+                            <h3 class="mt-4">Venue Image</h3>
+                            <p class="text-muted">International Conference Center<br>Ibadan, Nigeria</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Form -->
+    <section class="section-padding booking-section" id="book-now">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Reserve Your Seat</h2>
+            <p class="section-subtitle" data-aos="fade-up">
+                Complete the form below to book your attendance. Early bird discount ends May 31, 2026!
+            </p>
+            
+            <div class="row justify-content-center">
+                <div class="col-lg-8" data-aos="zoom-in">
+                    <div class="booking-form-card">
+                        <form id="conferenceBookingForm">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group-custom">
+                                        <label class="form-label-custom required-field">First Name</label>
+                                        <input type="text" class="form-control form-control-custom" placeholder="Enter first name" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group-custom">
+                                        <label class="form-label-custom required-field">Last Name</label>
+                                        <input type="text" class="form-control form-control-custom" placeholder="Enter last name" required>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group-custom">
+                                        <label class="form-label-custom required-field">Email Address</label>
+                                        <input type="email" class="form-control form-control-custom" placeholder="your.email@example.com" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group-custom">
+                                        <label class="form-label-custom required-field">Phone Number</label>
+                                        <input type="tel" class="form-control form-control-custom" placeholder="+234 XXX XXX XXXX" required>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group-custom">
+                                        <label class="form-label-custom required-field">Country</label>
+                                        <select class="form-select form-select-custom" required>
+                                            <option value="">Select Country</option>
+                                            <option value="nigeria">Nigeria</option>
+                                            <option value="ghana">Ghana</option>
+                                            <option value="kenya">Kenya</option>
+                                            <option value="south_africa">South Africa</option>
+                                            <option value="cameroon">Cameroon</option>
+                                            <option value="other">Other African Country</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group-custom">
+                                        <label class="form-label-custom required-field">I am a</label>
+                                        <select class="form-select form-select-custom" required>
+                                            <option value="">Select Category</option>
+                                            <option value="farmer">Poultry Farmer</option>
+                                            <option value="investor">Investor/Banker</option>
+                                            <option value="slaughterhouse">Slaughterhouse Owner</option>
+                                            <option value="logistics">Logistics Supplier</option>
+                                            <option value="distributor">Distributor/Retailer</option>
+                                            <option value="customer">Customer/Buyer</option>
+                                            <option value="researcher">Researcher/Academia</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group-custom">
+                                <label class="form-label-custom required-field">Select Package</label>
+                                <select class="form-select form-select-custom" id="packageSelect" required>
+                                    <option value="">Choose your package</option>
+                                    <option value="standard">Standard Pass - ₦50,000</option>
+                                    <option value="premium">Premium Pass - ₦100,000</option>
+                                    <option value="corporate">Corporate Pass (5 persons) - ₦250,000</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group-custom">
+                                <label class="form-label-custom">Company/Organization Name</label>
+                                <input type="text" class="form-control form-control-custom" placeholder="Enter company name (if applicable)">
+                            </div>
+                            
+                            <div class="form-group-custom">
+                                <label class="form-label-custom">Dietary Requirements</label>
+                                <textarea class="form-control form-control-custom" rows="2" placeholder="Any special dietary needs or allergies"></textarea>
+                            </div>
+                            
+                            <div class="form-group-custom">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="earlyBird" checked disabled>
+                                    <label class="form-check-label" for="earlyBird">
+                                        Apply Early Bird Discount (Ends May 31, 2026) - 20% OFF
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group-custom">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="termsCheck" required>
+                                    <label class="form-check-label" for="termsCheck">
+                                        I agree to the <a href="#" class="text-primary">Terms and Conditions</a> and <a href="#" class="text-primary">Cancellation Policy</a>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="text-center mt-4">
+                                <button type="submit" class="btn btn-primary-custom btn-lg">
+                                    <i class="bi bi-credit-card-2-front me-2"></i>Proceed to Payment
+                                </button>
+                                <p class="text-muted mt-3 mb-0">
+                                    <i class="bi bi-shield-check me-2"></i>Secure payment powered by Paystack/Flutterwave
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section-padding">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Frequently Asked Questions</h2>
+            <p class="section-subtitle" data-aos="fade-up">
+                Find answers to common questions about the conference
+            </p>
+            
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="faq-item" data-aos="fade-up">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <span>What is included in the conference fee?</span>
+                            <i class="bi bi-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            The conference fee includes access to all keynote sessions, workshop sessions (for Premium pass holders), conference materials, networking sessions, exhibition hall access, refreshments, lunch for all 3 days, and certificate of attendance. Premium pass holders also get VIP networking dinner, conference recordings, and year-round platform access.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item" data-aos="fade-up">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <span>Can I get a refund if I can't attend?</span>
+                            <i class="bi bi-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            Yes, we offer a flexible cancellation policy. Full refund if cancelled 60 days before the event, 50% refund if cancelled 30-60 days before, and no refund for cancellations less than 30 days before the event. However, you can transfer your ticket to another person at no cost.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item" data-aos="fade-up">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <span>Will there be accommodation arrangements?</span>
+                            <i class="bi bi-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            We have partnered with several hotels in Ibadan to offer special discounted rates for conference attendees. Upon registration, you'll receive a list of partner hotels with booking codes. We also provide shuttle service from major hotels to the conference venue.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item" data-aos="fade-up">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <span>Is there a virtual attendance option?</span>
+                            <i class="bi bi-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            Yes! We offer a virtual attendance package for ₦25,000 which includes live streaming of all keynote sessions, access to digital materials, virtual networking rooms, and conference recordings. However, in-person attendance is highly recommended for the full networking and workshop experience.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item" data-aos="fade-up">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <span>How can I become a speaker or exhibitor?</span>
+                            <i class="bi bi-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            If you're interested in speaking or exhibiting, please contact us at speakers@bcfpoultry.com or exhibitors@bcfpoultry.com respectively. We review all proposals and will get back to you within 2 weeks. Exhibition spaces are limited and allocated on a first-come, first-served basis.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item" data-aos="fade-up">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <span>Will I receive a certificate?</span>
+                            <i class="bi bi-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            Yes, all attendees will receive a Certificate of Attendance at the end of the conference. This certificate can be used for professional development credits and continuing education requirements.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sponsors -->
+    <section class="section-padding" style="background: linear-gradient(135deg, rgba(255,107,0,0.05), rgba(255,193,7,0.05));">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Our Partners & Sponsors</h2>
+            <p class="section-subtitle" data-aos="fade-up">
+                Supported by leading organizations in agriculture and finance
+            </p>
+            
+            <div class="row justify-content-center">
+                <div class="col-6 col-md-3 text-center mb-4" data-aos="fade-up" data-aos-delay="100">
+                    <div style="background: white; padding: 2rem; border-radius: 15px; height: 120px; display: flex; align-items: center; justify-content: center;" class="mb-3">
+                        <i class="bi bi-building" style="font-size: 3rem; color: var(--primary-color);"></i>
+                    </div>
+                    <h6 class="mb-0">Central Bank of Nigeria</h6>
+                </div>
+                
+                <div class="col-6 col-md-3 text-center mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <div style="background: white; padding: 2rem; border-radius: 15px; height: 120px; display: flex; align-items: center; justify-content: center;" class="mb-3">
+                        <i class="bi bi-bank" style="font-size: 3rem; color: var(--primary-color);"></i>
+                    </div>
+                    <h6 class="mb-0">African Development Bank</h6>
+                </div>
+                
+                <div class="col-6 col-md-3 text-center mb-4" data-aos="fade-up" data-aos-delay="300">
+                    <div style="background: white; padding: 2rem; border-radius: 15px; height: 120px; display: flex; align-items: center; justify-content: center;" class="mb-3">
+                        <i class="bi bi-globe-africa" style="font-size: 3rem; color: var(--primary-color);"></i>
+                    </div>
+                    <h6 class="mb-0">AfCFTA Secretariat</h6>
+                </div>
+                
+                <div class="col-6 col-md-3 text-center mb-4" data-aos="fade-up" data-aos-delay="400">
+                    <div style="background: white; padding: 2rem; border-radius: 15px; height: 120px; display: flex; align-items: center; justify-content: center;" class="mb-3">
+                        <i class="bi bi-cash-coin" style="font-size: 3rem; color: var(--primary-color);"></i>
+                    </div>
+                    <h6 class="mb-0">BOI Nigeria</h6>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4">
+                <button class="btn btn-outline-custom">
+                    <i class="bi bi-hand-thumbs-up me-2"></i>Become a Sponsor
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section-padding" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">
+        <div class="container text-center text-white">
+            <h2 class="display-4 fw-bold mb-4" data-aos="zoom-in">Don't Miss This Opportunity!</h2>
+            <p class="lead mb-4" data-aos="zoom-in" data-aos-delay="100">
+                Join 2000+ industry leaders shaping the future of poultry in Africa
+            </p>
+            <div data-aos="zoom-in" data-aos-delay="200">
+                <a href="#book-now" class="btn btn-light btn-lg-custom me-3 mb-2">
+                    <i class="bi bi-ticket-perforated-fill me-2"></i>Book Your Seat Now
+                </a>
+                <a href="tel:+2349153005424" class="btn btn-outline-light btn-lg-custom mb-2">
+                    <i class="bi bi-telephone-fill me-2"></i>Call Us
+                </a>
+            </div>
+            <p class="mt-4 mb-0"><i class="bi bi-clock-fill me-2"></i>Early bird discount ends May 31, 2026</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4 class="mb-3"><i class="bi bi-building me-2"></i>BCF Poultry</h4>
+                    <p>Transforming Nigeria's poultry industry through technology, transparency, and trusted partnerships.</p>
+                    <p class="mb-2"><i class="bi bi-telephone-fill me-2"></i>+234 915 300 5424</p>
+                    <p class="mb-2"><i class="bi bi-envelope-fill me-2"></i>bodeclassicfoods@gmail.com</p>
+                    <p><i class="bi bi-geo-alt-fill me-2"></i>No. 116 Adegoke Adelabu way, Ibadan, Nigeria</p>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="mb-3">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="index.html" class="text-white-50 text-decoration-none">Home</a></li>
+                        <li class="mb-2"><a href="booking.html" class="text-white-50 text-decoration-none">Booking</a></li>
+                        <li class="mb-2"><a href="#agenda" class="text-white-50 text-decoration-none">Conference Agenda</a></li>
+                        <li class="mb-2"><a href="#book-now" class="text-white-50 text-decoration-none">Book Seat</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="mb-3">Follow Us</h5>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-white"><i class="bi bi-facebook fs-4"></i></a>
+                        <a href="#" class="text-white"><i class="bi bi-twitter fs-4"></i></a>
+                        <a href="#" class="text-white"><i class="bi bi-instagram fs-4"></i></a>
+                        <a href="#" class="text-white"><i class="bi bi-linkedin fs-4"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="mb-0">&copy; 2026 BCF Poultry Management Solution. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+        // Initialize AOS Animation Library
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+        
+        // Theme Toggle Functionality
+        function toggleTheme() {
+            const html = document.documentElement;
+            const icon = document.getElementById('theme-icon');
+            
+            if (html.getAttribute('data-bs-theme') === 'light') {
+                html.setAttribute('data-bs-theme', 'dark');
+                icon.classList.remove('bi-moon-stars-fill');
+                icon.classList.add('bi-sun-fill');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                html.setAttribute('data-bs-theme', 'light');
+                icon.classList.remove('bi-sun-fill');
+                icon.classList.add('bi-moon-stars-fill');
+                localStorage.setItem('theme', 'light');
+            }
+        }
+        
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-bs-theme', savedTheme);
+        if (savedTheme === 'dark') {
+            document.getElementById('theme-icon').classList.remove('bi-moon-stars-fill');
+            document.getElementById('theme-icon').classList.add('bi-sun-fill');
+        }
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Countdown Timer
+        function updateCountdown() {
+            const conferenceDate = new Date('July 15, 2026 09:00:00').getTime();
+            const now = new Date().getTime();
+            const distance = conferenceDate - now;
+            
+            if (distance > 0) {
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                
+                document.getElementById('days').textContent = String(days).padStart(3, '0');
+                document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+                document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+                document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+            }
+        }
+        
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+        
+        // FAQ Toggle
+        function toggleFaq(element) {
+            const faqItem = element.parentElement;
+            const isActive = faqItem.classList.contains('active');
+            
+            // Close all FAQ items
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Open clicked item if it wasn't active
+            if (!isActive) {
+                faqItem.classList.add('active');
+            }
+        }
+        
+        // Package Selection
+        function selectPackage(packageType) {
+            const packageSelect = document.getElementById('packageSelect');
+            packageSelect.value = packageType;
+            
+            // Scroll to booking form
+            document.getElementById('book-now').scrollIntoView({ behavior: 'smooth' });
+            
+            // Highlight the form
+            packageSelect.parentElement.classList.add('animate__animated', 'animate__pulse');
+            setTimeout(() => {
+                packageSelect.parentElement.classList.remove('animate__animated', 'animate__pulse');
+            }, 1000);
+        }
+        
+        // Form Submission
+        document.getElementById('conferenceBookingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            
+            // Show success message
+            alert('Thank you for your registration! You will be redirected to the payment page.\n\nA confirmation email will be sent to your email address shortly.');
+            
+            // Here you would normally redirect to payment gateway
+            // window.location.href = '/payment?booking_id=...';
+            
+            // Reset form
+            this.reset();
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Active nav link based on scroll
+        const sections = document.querySelectorAll('section[id]');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="BCF Poultry Management Solution - Feed sponsoring and poultry tracker for nationwide frozen chicken supplies">
+    <title>BCF Poultry Management Solution | Transforming Poultry Supply Chain</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #FF6B00;
+            --secondary-color: #FFD700;
+            --accent-color: #C41E3A;
+            --dark-bg: #1a1a2e;
+            --light-bg: #f8f9fa;
+            --text-dark: #2c3e50;
+            --text-light: #ecf0f1;
+            --card-light: #ffffff;
+            --card-dark: #16213e;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            transition: var(--transition);
+        }
+
+        /* Theme Styles */
+        [data-theme="light"] {
+            --bg-color: #ffffff;
+            --text-color: var(--text-dark);
+            --card-bg: var(--card-light);
+            --nav-bg: rgba(255, 255, 255, 0.95);
+        }
+
+        [data-theme="dark"] {
+            --bg-color: var(--dark-bg);
+            --text-color: var(--text-light);
+            --card-bg: var(--card-dark);
+            --nav-bg: rgba(26, 26, 46, 0.95);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        /* Navigation */
+        .navbar {
+            background: var(--nav-bg) !important;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            transition: var(--transition);
+            padding: 1rem 0;
+        }
+
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: var(--primary-color) !important;
+        }
+
+        .navbar-brand span {
+            color: var(--accent-color);
+        }
+
+        .nav-link {
+            font-weight: 500;
+            margin: 0 0.5rem;
+            color: var(--text-color) !important;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color) !important;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            background: var(--primary-color);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: white;
+            transition: var(--transition);
+            margin-left: 1rem;
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(180deg);
+            box-shadow: 0 5px 20px rgba(255, 107, 0, 0.4);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 100vh;
+            background: linear-gradient(135deg, rgba(255,107,0,0.9) 0%, rgba(196,30,58,0.9) 100%), 
+                        url('https://images.unsplash.com/photo-1548550023-2bdb3c5a3d78?w=1920') center/cover;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--secondary-color);
+            color: var(--dark-bg);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            animation: fadeInDown 0.8s;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            animation: fadeInUp 0.8s 0.2s both;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s 0.4s both;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 3rem;
+            animation: fadeInUp 0.8s 0.6s both;
+        }
+
+        .stat-item {
+            text-align: center;
+            color: white;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .btn-custom {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            border: none;
+            margin: 0.5rem;
+        }
+
+        .btn-primary-custom {
+            background: var(--secondary-color);
+            color: var(--dark-bg);
+        }
+
+        .btn-primary-custom:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
+            background: var(--secondary-color);
+        }
+
+        .btn-outline-custom {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-outline-custom:hover {
+            background: white;
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        /* Section Styles */
+        .section-padding {
+            padding: 6rem 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            color: #666;
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        [data-theme="dark"] .section-subtitle {
+            color: #aaa;
+        }
+
+        /* Features Section */
+        .features-section {
+            background: var(--bg-color);
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 20px;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid rgba(0,0,0,0.05);
+            height: 100%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            background: linear-gradient(135deg, var(--bg-color) 0%, rgba(255,107,0,0.05) 100%);
+        }
+
+        .step-card {
+            position: relative;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-card:not(:last-child) .step-number::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 100%;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), transparent);
+            transform: translateY(-50%);
+        }
+
+        /* Services Section */
+        .service-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: var(--transition);
+            margin-bottom: 2rem;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        .service-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .service-content {
+            padding: 1.5rem;
+        }
+
+        .service-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            padding: 5rem 0;
+            text-align: center;
+            color: white;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        /* Contact Section */
+        .contact-info-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            transition: var(--transition);
+        }
+
+        .contact-info-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-bg);
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-brand {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .footer-brand span {
+            color: var(--primary-color);
+        }
+
+        .footer-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--secondary-color);
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            text-align: center;
+            color: #aaa;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .hero-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .step-card:not(:last-child) .step-number::after {
+                display: none;
+            }
+        }
+
+        /* Loading Animation */
+        .fade-in {
+            animation: fadeIn 0.8s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-drumstick-bite me-2"></i>BCF<span>Poultry</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#booking">Booking</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#store">Store</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#events">Events</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                    <li class="nav-item">
+                        <button class="theme-toggle" id="themeToggle" title="Toggle Theme">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </li>
+                    <li class="nav-item ms-2">
+                        <a href="#booking" class="btn btn-primary-custom btn-custom">Get Started</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8 hero-content">
+                    <div class="hero-badge">
+                        <i class="fas fa-rocket me-2"></i>Target 2026: 1,000,000 Birds Processing
+                    </div>
+                    <h1 class="hero-title">
+                        Transforming Nigeria's<br>
+                        <span style="color: var(--secondary-color);">Poultry Supply Chain</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        Complete poultry management solution connecting farmers, feed suppliers, 
+                        investors, slaughterhouses, and distributors in one seamless ecosystem.
+                    </p>
+                    <div>
+                        <a href="#booking" class="btn btn-primary-custom btn-custom">
+                            <i class="fas fa-calendar-check me-2"></i>Book Now
+                        </a>
+                        <a href="#about" class="btn btn-outline-custom btn-custom">
+                            <i class="fas fa-play-circle me-2"></i>Learn More
+                        </a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">500+</span>
+                            <span class="stat-label">Partner Farms</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">50K+</span>
+                            <span class="stat-label">Birds Monthly</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">100%</span>
+                            <span class="stat-label">Sales Rate</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-shape"></div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section-padding features-section" id="about">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Why Choose BCF?</h2>
+                <p class="section-subtitle">Comprehensive poultry management platform designed for scale and efficiency</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3 class="feature-title">Multi-Stakeholder Platform</h3>
+                        <p>Connect farmers, feed suppliers, investors, slaughterhouses, distributors, and customers in one integrated ecosystem.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3 class="feature-title">Investment Matching</h3>
+                        <p>Verified investment opportunities matched with farmers for feed sponsorship and farm expansion.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-clipboard-check"></i>
+                        </div>
+                        <h3 class="feature-title">End-to-End Tracking</h3>
+                        <p>Monitor bird maturity, feed supplies, processing schedules, and distribution in real-time.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-warehouse"></i>
+                        </div>
+                        <h3 class="feature-title">Supply Chain Management</h3>
+                        <p>Book feed depots, schedule slaughterhouse processing, and manage post-logistics seamlessly.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-hand-holding-usd"></i>
+                        </div>
+                        <h3 class="feature-title">Automated Payments</h3>
+                        <p>Secure payment distribution to farmers, suppliers, slaughterhouses, investors, and BCF.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-analytics"></i>
+                        </div>
+                        <h3 class="feature-title">Performance Analytics</h3>
+                        <p>Evaluate processes, identify improvements, and scale operations with data-driven insights.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="section-padding how-it-works">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">How It Works</h2>
+                <p class="section-subtitle">Four simple steps to transform your poultry business</p>
+            </div>
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <h4>Register & Verify</h4>
+                        <p>Join as farmer, supplier, investor, or distributor. Complete verification process.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <h4>Book & Match</h4>
+                        <p>Book feed supplies, birds, or investment opportunities. Smart matching system.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <h4>Track & Monitor</h4>
+                        <p>Real-time tracking of feed, bird maturity, processing, and distribution.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="step-card">
+                        <div class="step-number">4</div>
+                        <h4>Get Paid</h4>
+                        <p>Automated payment distribution to all stakeholders upon completion.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section-padding" id="booking">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Our Services</h2>
+                <p class="section-subtitle">Complete poultry supply chain solutions</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-card">
+                        <div class="service-img" style="background-image: url('https://images.unsplash.com/photo-1548550023-2bdb3c5a3d78?w=600');"></div>
+                        <div class="service-content">
+                            <h3 class="service-title"><i class="fas fa-seedling me-2 text-warning"></i>Feed Supply Booking</h3>
+                            <p>Book quality feed from verified suppliers based on your farm capacity. Track deliveries and inventory.</p>
+                            <a href="#" class="btn btn-sm btn-primary-custom">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-card">
+                        <div class="service-img" style="background-image: url('https://images.unsplash.com/photo-1569405760693-30d7128a2614?w=600');"></div>
+                        <div class="service-content">
+                            <h3 class="service-title"><i class="fas fa-egg me-2 text-warning"></i>Bird Booking</h3>
+                            <p>Browse available birds from verified farmers. Book chicks, growers, or mature birds for processing.</p>
+                            <a href="#" class="btn btn-sm btn-primary-custom">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-card">
+                        <div class="service-img" style="background-image: url('https://images.unsplash.com/photo-1604542031651-515009e394f3?w=600');"></div>
+                        <div class="service-content">
+                            <h3 class="service-title"><i class="fas fa-industry me-2 text-warning"></i>Slaughterhouse Booking</h3>
+                            <p>Schedule processing at certified slaughterhouses. Track processing status and quality control.</p>
+                            <a href="#" class="btn btn-sm btn-primary-custom">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-card">
+                        <div class="service-img" style="background-image: url('https://images.unsplash.com/photo-1587080429600-85a5e7641ae9?w=600');"></div>
+                        <div class="service-content">
+                            <h3 class="service-title"><i class="fas fa-shopping-cart me-2 text-warning"></i>Frozen Chicken Store</h3>
+                            <p>Order whole chicken, parts, or value-added products. Nationwide delivery available.</p>
+                            <a href="#" class="btn btn-sm btn-primary-custom">Shop Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-card">
+                        <div class="service-img" style="background-image: url('https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600');"></div>
+                        <div class="service-content">
+                            <h3 class="service-title"><i class="fas fa-hand-holding-heart me-2 text-warning"></i>Investment Opportunities</h3>
+                            <p>Invest in verified farms and feed sponsorship programs. Track ROI and impact.</p>
+                            <a href="#" class="btn btn-sm btn-primary-custom">Invest Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-card">
+                        <div class="service-img" style="background-image: url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=600');"></div>
+                        <div class="service-content">
+                            <h3 class="service-title"><i class="fas fa-truck me-2 text-warning"></i>Logistics & Distribution</h3>
+                            <p>Cold chain logistics for frozen products. Real-time tracking and timely delivery.</p>
+                            <a href="#" class="btn btn-sm btn-primary-custom">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="section-padding" style="background: var(--card-bg);">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="p-4">
+                        <i class="fas fa-tractor fa-3x text-warning mb-3"></i>
+                        <h3 class="display-4 fw-bold text-primary">500+</h3>
+                        <p class="lead">Partner Farms</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="p-4">
+                        <i class="fas fa-drumstick-bite fa-3x text-warning mb-3"></i>
+                        <h3 class="display-4 fw-bold text-primary">1M+</h3>
+                        <p class="lead">Birds Target 2026</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="p-4">
+                        <i class="fas fa-users fa-3x text-warning mb-3"></i>
+                        <h3 class="display-4 fw-bold text-primary">10K+</h3>
+                        <p class="lead">Active Users</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="p-4">
+                        <i class="fas fa-percentage fa-3x text-warning mb-3"></i>
+                        <h3 class="display-4 fw-bold text-primary">100%</h3>
+                        <p class="lead">Sales Rate</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="cta-title">Ready to Transform Your Poultry Business?</h2>
+            <p class="lead mb-4">Join Nigeria's leading poultry management platform today</p>
+            <a href="#contact" class="btn btn-light btn-custom btn-lg">
+                <i class="fas fa-rocket me-2"></i>Get Started Now
+            </a>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section-padding" id="contact">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Get In Touch</h2>
+                <p class="section-subtitle">We're here to help you succeed</p>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <div class="contact-info-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-2">Visit Us</h5>
+                            <p class="mb-0">No. 116 Adegoke Adelabu way,<br>Off Total Garden, Yemetu St,<br>Ibadan, Nigeria, 200211</p>
+                        </div>
+                    </div>
+                    <div class="contact-info-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-2">Call Us</h5>
+                            <p class="mb-0">+234 915 300 5424</p>
+                        </div>
+                    </div>
+                    <div class="contact-info-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-2">Email Us</h5>
+                            <p class="mb-0">bodeclassicfoods@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="card border-0 shadow-lg" style="background: var(--card-bg);">
+                        <div class="card-body p-5">
+                            <h3 class="mb-4">Send us a Message</h3>
+                            <form>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <input type="text" class="form-control form-control-lg" placeholder="Your Name" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <input type="email" class="form-control form-control-lg" placeholder="Your Email" required>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <select class="form-select form-select-lg">
+                                        <option selected>I'm interested in...</option>
+                                        <option>Farming Partnership</option>
+                                        <option>Feed Supply</option>
+                                        <option>Investment Opportunity</option>
+                                        <option>Become a Distributor</option>
+                                        <option>Buy Frozen Chicken</option>
+                                        <option>Other</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <textarea class="form-control form-control-lg" rows="5" placeholder="Your Message" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary-custom btn-custom w-100">
+                                    <i class="fas fa-paper-plane me-2"></i>Send Message
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <div class="footer-brand">
+                        <i class="fas fa-drumstick-bite me-2"></i>BCF<span>Poultry</span>
+                    </div>
+                    <p>Transforming Nigeria's poultry supply chain through technology, transparency, and trust. Connecting farmers to markets since 2026.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h4 class="footer-title">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#booking">Booking</a></li>
+                        <li><a href="#store">Store</a></li>
+                        <li><a href="#events">Events</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h4 class="footer-title">Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Feed Supply</a></li>
+                        <li><a href="#">Bird Booking</a></li>
+                        <li><a href="#">Slaughterhouse</a></li>
+                        <li><a href="#">Frozen Chicken</a></li>
+                        <li><a href="#">Investment</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h4 class="footer-title">Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">Refund Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 BCF Poultry Management Solution. All rights reserved. | Designed with <i class="fas fa-heart text-danger"></i> in Nigeria</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        const icon = themeToggle.querySelector('i');
+
+        // Check for saved theme preference or prefer light theme
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        html.setAttribute('data-theme', currentTheme);
+        updateIcon(currentTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateIcon(newTheme);
+        });
+
+        function updateIcon(theme) {
+            if (theme === 'dark') {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        }
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navbar Background on Scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+            } else {
+                navbar.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+            }
+        });
+
+        // Animation on Scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards and sections
+        document.querySelectorAll('.feature-card, .service-card, .step-card').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Counter Animation
+        const counters = document.querySelectorAll('.stat-number');
+        const speed = 200;
+
+        const animateCounters = () => {
+            counters.forEach(counter => {
+                const target = +counter.innerText.replace(/\D/g, '');
+                const count = +counter.innerText;
+                const inc = target / speed;
+
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + inc) + counter.innerText.replace(/\d/g, '');
+                    setTimeout(animateCounters, 20);
+                } else {
+                    counter.innerText = target + counter.innerText.replace(/\d/g, '');
+                }
+            });
+        };
+
+        // Trigger counter animation when stats section is visible
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const statsSection = document.querySelector('.hero-stats');
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
+    </script>
+</body>
+</html>

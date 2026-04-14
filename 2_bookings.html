@@ -1,0 +1,2079 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking - BCF Poultry Supply Chain | Directory & Registration</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Leaflet CSS for Maps -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <style>
+        :root {
+            --primary-color: #FF6B00;
+            --secondary-color: #FFC107;
+            --accent-color: #28A745;
+            --dark-color: #1A1A2E;
+            --light-bg: #F8F9FA;
+            --dark-bg: #0F0F1E;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+            overflow-x: hidden;
+            padding-top: 76px;
+        }
+        
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 100px;
+            right: 30px;
+            z-index: 1000;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+        }
+        
+        .theme-toggle:hover {
+            transform: rotate(180deg);
+        }
+        
+        /* Navigation */
+        .navbar {
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+            padding: 1rem 0;
+        }
+        
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.95) !important;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+        
+        [data-bs-theme="dark"] .navbar.scrolled {
+            background: rgba(15, 15, 30, 0.95) !important;
+        }
+        
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            margin: 0 0.5rem;
+            position: relative;
+            transition: color 0.3s;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transition: width 0.3s;
+        }
+        
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+        
+        .nav-link.active {
+            color: var(--primary-color) !important;
+        }
+        
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, rgba(255,107,0,0.1) 0%, rgba(255,193,7,0.1) 100%);
+            padding: 4rem 0 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        [data-bs-theme="dark"] .page-header {
+            background: linear-gradient(135deg, rgba(255,107,0,0.05) 0%, rgba(255,193,7,0.05) 100%);
+        }
+        
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .breadcrumb-custom {
+            background: transparent;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .breadcrumb-item a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        /* Tabs */
+        .nav-tabs-custom {
+            border: none;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+        
+        .nav-tabs-custom .nav-link {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 50px;
+            padding: 0.75rem 2rem;
+            color: #6c757d;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        [data-bs-theme="dark"] .nav-tabs-custom .nav-link {
+            background: #1a1a2e;
+            border-color: #2a2a3e;
+            color: #adb5bd;
+        }
+        
+        .nav-tabs-custom .nav-link:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .nav-tabs-custom .nav-link.active {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-color: transparent;
+            color: white;
+        }
+        
+        /* Cards */
+        .directory-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            height: 100%;
+            border: none;
+        }
+        
+        [data-bs-theme="dark"] .directory-card {
+            background: #1a1a2e;
+        }
+        
+        .directory-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .card-image-wrapper {
+            position: relative;
+            height: 220px;
+            overflow: hidden;
+        }
+        
+        .card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        
+        .directory-card:hover .card-image {
+            transform: scale(1.1);
+        }
+        
+        .card-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .card-status {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            padding: 0.4rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .status-available {
+            background: #28A745;
+            color: white;
+        }
+        
+        .status-booked {
+            background: #FFC107;
+            color: #1A1A2E;
+        }
+        
+        .status-mature {
+            background: #DC3545;
+            color: white;
+        }
+        
+        .card-body-custom {
+            padding: 1.5rem;
+        }
+        
+        .card-title-custom {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .card-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+        
+        [data-bs-theme="dark"] .meta-item {
+            color: #adb5bd;
+        }
+        
+        .meta-item i {
+            color: var(--primary-color);
+        }
+        
+        .card-price {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        /* Filter Section */
+        .filter-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            margin-bottom: 3rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+        
+        [data-bs-theme="dark"] .filter-section {
+            background: #1a1a2e;
+        }
+        
+        .form-control-custom, .form-select-custom {
+            padding: 0.75rem 1rem;
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s;
+        }
+        
+        .form-control-custom:focus, .form-select-custom:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(255,107,0,0.25);
+        }
+        
+        /* Registration Forms */
+        .registration-section {
+            padding: 4rem 0;
+        }
+        
+        .form-card {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+        }
+        
+        [data-bs-theme="dark"] .form-card {
+            background: #1a1a2e;
+        }
+        
+        .form-section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--primary-color);
+            display: inline-block;
+        }
+        
+        .form-group-custom {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label-custom {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        
+        .required-field::after {
+            content: ' *';
+            color: #DC3545;
+        }
+        
+        /* Supply Chain Gallery */
+        .supply-chain-item {
+            background: linear-gradient(135deg, rgba(255,107,0,0.1), rgba(255,193,7,0.1));
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+        
+        [data-bs-theme="dark"] .supply-chain-item {
+            background: linear-gradient(135deg, rgba(255,107,0,0.05), rgba(255,193,7,0.05));
+        }
+        
+        .supply-chain-item:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+        
+        .chain-icon-large {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 3rem;
+            color: white;
+        }
+        
+        /* Map Container */
+        #map {
+            height: 400px;
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            z-index: 1;
+        }
+        
+        /* Stats Cards */
+        .stats-card {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .stats-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            display: block;
+        }
+        
+        .stats-label {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+        
+        /* Buttons */
+        .btn-primary-custom {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(255,107,0,0.3);
+        }
+        
+        .btn-primary-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255,107,0,0.4);
+            color: white;
+        }
+        
+        .btn-outline-custom {
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+            background: transparent;
+        }
+        
+        .btn-outline-custom:hover {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-color: transparent;
+            color: white;
+        }
+        
+        /* Gallery Grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        /* Progress Bar */
+        .progress-custom {
+            height: 10px;
+            border-radius: 10px;
+            background: #e9ecef;
+            overflow: hidden;
+        }
+        
+        .progress-bar-custom {
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 10px;
+        }
+        
+        /* Modal Custom */
+        .modal-content-custom {
+            border-radius: 20px;
+            border: none;
+        }
+        
+        [data-bs-theme="dark"] .modal-content-custom {
+            background: #1a1a2e;
+        }
+        
+        .modal-header-custom {
+            border-bottom: 2px solid #e9ecef;
+            padding: 1.5rem 2rem;
+        }
+        
+        [data-bs-theme="dark"] .modal-header-custom {
+            border-bottom-color: #2a2a3e;
+        }
+        
+        .modal-title-custom {
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+        
+        .modal-body-custom {
+            padding: 2rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 3rem 0 2rem;
+            margin-top: 5rem;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 2rem;
+            padding-top: 2rem;
+            text-align: center;
+            color: #6c757d;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-card {
+                padding: 2rem 1.5rem;
+            }
+            
+            .nav-tabs-custom .nav-link {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+        }
+        
+        /* Loading Spinner */
+        .spinner-custom {
+            width: 3rem;
+            height: 3rem;
+            border: 4px solid #e9ecef;
+            border-top-color: var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Quick Actions */
+        .quick-action-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid #e9ecef;
+        }
+        
+        [data-bs-theme="dark"] .quick-action-card {
+            background: #1a1a2e;
+            border-color: #2a2a3e;
+        }
+        
+        .quick-action-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+        
+        .quick-action-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, rgba(255,107,0,0.1), rgba(255,193,7,0.1));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Theme">
+        <i class="bi bi-moon-stars-fill" id="theme-icon"></i>
+    </button>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-building me-2"></i>BCF
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="booking.html">Booking</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#events">Events</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8" data-aos="fade-right">
+                    <h1 class="page-title">Poultry Supply Chain Directory</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb breadcrumb-custom">
+                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Booking & Directory</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg-4 text-lg-end mt-4 mt-lg-0" data-aos="fade-left">
+                    <button class="btn btn-primary-custom btn-lg" data-bs-toggle="modal" data-bs-target="#quickRegisterModal">
+                        <i class="bi bi-plus-circle me-2"></i>Quick Register
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Tabs Navigation -->
+        <ul class="nav nav-tabs nav-tabs-custom" id="bookingTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="birds-tab" data-bs-toggle="tab" data-bs-target="#birds" type="button" role="tab">
+                    <i class="bi bi-calendar-check me-2"></i>Available Birds
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="feed-tab" data-bs-toggle="tab" data-bs-target="#feed" type="button" role="tab">
+                    <i class="bi bi-cart-check me-2"></i>Feed Supply
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="farms-tab" data-bs-toggle="tab" data-bs-target="#farms" type="button" role="tab">
+                    <i class="bi bi-house-door me-2"></i>Farms & Farmers
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="slaughter-tab" data-bs-toggle="tab" data-bs-target="#slaughter" type="button" role="tab">
+                    <i class="bi bi-scissors me-2"></i>Slaughter Houses
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="frozen-tab" data-bs-toggle="tab" data-bs-target="#frozen" type="button" role="tab">
+                    <i class="bi bi-snow me-2"></i>Frozen Chicken
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="register-tab" data-bs-toggle="tab" data-bs-target="#register" type="button" role="tab">
+                    <i class="bi bi-person-plus me-2"></i>Register
+                </button>
+            </li>
+        </ul>
+
+        <!-- Tab Content -->
+        <div class="tab-content" id="bookingTabsContent">
+            
+            <!-- Available Birds Tab -->
+            <div class="tab-pane fade show active" id="birds" role="tabpanel">
+                <!-- Filter Section -->
+                <div class="filter-section" data-aos="fade-up">
+                    <div class="row g-3">
+                        <div class="col-md-3">
+                            <label class="form-label fw-semibold">Search</label>
+                            <input type="text" class="form-control form-control-custom" placeholder="Search birds...">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label fw-semibold">Location</label>
+                            <select class="form-select form-select-custom">
+                                <option value="">All Locations</option>
+                                <option value="ibadan">Ibadan</option>
+                                <option value="lagos">Lagos</option>
+                                <option value="abuja">Abuja</option>
+                                <option value="kano">Kano</option>
+                                <option value="oyo">Oyo State</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label fw-semibold">Bird Type</label>
+                            <select class="form-select form-select-custom">
+                                <option value="">All Types</option>
+                                <option value="broiler">Broiler</option>
+                                <option value="layer">Layer</option>
+                                <option value="cockerel">Cockerel</option>
+                                <option value="cock">Cock</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label fw-semibold">Status</label>
+                            <select class="form-select form-select-custom">
+                                <option value="">All Status</option>
+                                <option value="available">Available</option>
+                                <option value="booked">Booked</option>
+                                <option value="mature">Ready for Processing</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Birds Gallery -->
+                <div class="gallery-grid">
+                    <!-- Bird Card 1 -->
+                    <div class="directory-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="card-image-wrapper">
+                            <img src="https://via.placeholder.com/400x300/FF6B00/FFFFFF?text=Broiler+Chicken" alt="Bird" class="card-image">
+                            <span class="card-badge">5,000 Birds</span>
+                            <span class="card-status status-available">Available</span>
+                        </div>
+                        <div class="card-body-custom">
+                            <h3 class="card-title-custom">Premium Broiler Chickens</h3>
+                            <div class="card-meta">
+                                <div class="meta-item">
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                    <span>Ibadan, Oyo State</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="bi bi-calendar3"></i>
+                                    <span>6-8 Weeks</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="bi bi-person"></i>
+                                    <span>Farmer: Adeyemi Farms</span>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <small class="text-muted">Maturity Progress</small>
+                                <div class="progress-custom mt-1">
+                                    <div class="progress-bar-custom" style="width: 75%"></div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="card-price">₦2,500/bird</div>
+                                <button class="btn btn-primary-custom" data-bs-toggle="modal" data-bs-target="#bookBirdModal">
+                                    <i class="bi bi-cart-plus me-2"></i>Book Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bird Card 2 -->
+                    <div class="directory-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="card-image-wrapper">
+                            <img src="https://via.placeholder.com/400x300/FFC107/1A1A2E?text=Layer+Hens" alt="Bird" class="card-image">
+                            <span class="card-badge">3,200 Birds</span>
+                            <span class="card-status status-booked">Partially Booked</span>
+                        </div>
+                        <div class="card-body-custom">
+                            <h3 class="card-title-custom">Layer Hens (Point of Lay)</h3>
+                            <div class="card-meta">
+                                <div class="meta-item">
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                    <span>Lagos State</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="bi bi-calendar3"></i>
+                                    <span>18 Weeks</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="bi bi-person"></i>
+                                    <span>Farmer: Nwosu Poultry</span>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <small class="text-muted">Maturity Progress</small>
+                                <div class="progress-custom mt-1">
+                                    <div class="progress-bar-custom" style="width: 90%"></div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="card-price">₦3,200/bird</div>
+                                <button class="btn btn-primary-custom" data-bs-toggle="modal" data-bs-target="#bookBirdModal">
+                                    <i class="bi bi-cart-plus me-2"></i>Book Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bird Card 3 -->
+                    <div class="directory-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="card-image-wrapper">
+                            <img src="https://via.placeholder.com/400x300/28A745/FFFFFF?text=Cockerels" alt="Bird" class="card-image">
+                            <span class="card-badge">1,500 Birds</span>
+                            <span class="card-status status-mature">Ready for Processing</span>
+                        </div>
+                        <div class="card-body-custom">
+                            <h3 class="card-title-custom">Mature Cockerels</h3>
+                            <div class="card-meta">
+                                <div class="meta-item">
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                    <span>Kano State</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="bi bi-calendar3"></i>
+                                    <span>12-14 Weeks</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="bi bi-person"></i>
+                                    <span>Farmer: Bello Farms</span>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <small class="text-muted">Maturity Progress</small>
+                                <div class="progress-custom mt-1">
+                                    <div class="progress-bar-custom" style="width: 100%"></div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="card-price">₦2,800/bird</div>
+                                <button class="btn btn-primary-custom" data-bs-toggle="modal" data-bs-target="#bookBirdModal">
+                                    <i class="bi bi-cart-plus me-2"></i>Book Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bird Card 4 -->
+                    <div class="directory-card" data-aos="fade-up" data-aos-delay="400">
+                        <div class="card-image-wrapper">
+                            <img src="https://via.placeholder.com/400x300/DC3545/FFFFFF?text=Broilers" alt="Bird" class="card-image">
+                            <span class="card-badge">8,000 Birds</span>
+                            <span class="card-status status-available">Available</span>
+                        </div>
+                        <div class="card-body-custom">
+                            <h3 class="card-title-custom">Large Scale Broilers</h3>
+                            <div class="card-meta">
+                                <div class="meta-item">
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                    <span>Abuja FCT</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="bi bi-calendar3"></i>
+                                    <span>5-7 Weeks</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="bi bi-person"></i>
+                                    <span>Farmer: Capital Poultry</span>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <small class="text-muted">Maturity Progress</small>
+                                <div class="progress-custom mt-1">
+                                    <div class="progress-bar-custom" style="width: 60%"></div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="card-price">₦2,300/bird</div>
+                                <button class="btn btn-primary-custom" data-bs-toggle="modal" data-bs-target="#bookBirdModal">
+                                    <i class="bi bi-cart-plus me-2"></i>Book Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Load More -->
+                <div class="text-center">
+                    <button class="btn btn-outline-custom btn-lg">
+                        <i class="bi bi-arrow-down-circle me-2"></i>Load More Birds
+                    </button>
+                </div>
+            </div>
+
+            <!-- Feed Supply Tab -->
+            <div class="tab-pane fade" id="feed" role="tabpanel">
+                <!-- Stats Cards -->
+                <div class="row mb-4">
+                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                        <div class="stats-card">
+                            <span class="stats-number">25</span>
+                            <span class="stats-label">Feed Depots</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                        <div class="stats-card">
+                            <span class="stats-number">500+</span>
+                            <span class="stats-label">Tons Available</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                        <div class="stats-card">
+                            <span class="stats-number">15</span>
+                            <span class="stats-label">Pickup Points</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feed Depots -->
+                <h3 class="mb-4" data-aos="fade-up">Feed Depots & Suppliers</h3>
+                <div class="gallery-grid">
+                    <!-- Feed Depot Card 1 -->
+                    <div class="directory-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="card-image-wrapper">
+                            <img src="https://via.placeholder.com/400x300/FF6B00/FFFFFF?text=Feed+Depot" alt="Feed Depot" class="card-image">
+                            <span class="card-badge">50 Tons Stock</span>
+                        </div>
+                        <div class="card-body-custom">
+                            <h3 class="card-title-custom">Ibadan Central Feed Depot</h3>
+                            <div class="card-meta">
+                                <div class="meta-item">
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                    <span>Ibadan, Oyo State</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="bi bi-telephone"></i>
+                                    <span>+234 803 XXX XXXX</span>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Feed Types Available:</strong>
+                                <ul class="list-unstyled mt-2">
+                                    <li><i class="bi bi-check-circle-fill text-success me-2"></i>Broiler Starter</li>
+                                    <li><i class="bi bi-check-circle-fill text-success me-2"></i>Broiler Finisher</li>
+                                    <li><i class="bi bi-check-circle-fill text-success me-2"></i>Layer Mash</li>
+                                    <li><i class="bi bi-check-circle-fill text-success me-2"></i>Chick Mash</li>
+                                </ul>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="card-price">From ₦18,000/bag</div>
+                                <button class="btn btn-primary-custom" data-bs-toggle="modal" data-bs-target="#bookFeedModal">
+                                    <i class="bi bi-cart-plus me-2"></i>Book Feed
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Feed Depot Card 2 -->
+                    <div class="directory-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="card-image-wrapper">
+                            <img src="https://via.placeholder.com/400x300/FFC107/1A1A2E?text=Feed+Supplier" alt="Feed Supplier" class="card-image">
+                            <span class="card-badge">120 Tons Stock</span>
+                        </div>
+                        <div class="card-body-custom">
+                            <h3 class="card-title-custom">Lagos Feed Suppliers Ltd</h3>
+                            <div class="card-meta">
+                                <div class="meta-item">
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                    <span>Lagos State</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="bi bi-telephone"></i>
+                                    <span>+234 805 XXX XXXX</span>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Feed Types Available:</strong>
+                                <ul class="list-unstyled mt-2">
+                                    <li><i class="bi bi-check-circle-fill text-success me-2"></i>All Categories</li>
+                                    <li><i class="bi bi-check-circle-fill text-success me-2"></i>Custom Formulation</li>
+                                    <li><i class="bi bi-check-circle-fill text-success me-2"></i>Organic Feed</li>
+                                </ul>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="card-price">From ₦17,500/bag</div>
+                                <button class="btn btn-primary-custom" data-bs-toggle="modal" data-bs-target="#bookFeedModal">
+                                    <i class="bi bi-cart-plus me-2"></i>Book Feed
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feed Pickup Points Map -->
+                <h3 class="mb-4 mt-5" data-aos="fade-up">Feed Pickup Points</h3>
+                <div id="map" data-aos="fade-up"></div>
+
+                <!-- Farm Capacity Support -->
+                <h3 class="mb-4 mt-5" data-aos="fade-up">Feed Support by Farm Capacity</h3>
+                <div class="row g-4">
+                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                        <div class="supply-chain-item">
+                            <div class="chain-icon-large">
+                                <i class="bi bi-house-door"></i>
+                            </div>
+                            <h4>Small Scale (1-500 birds)</h4>
+                            <p>Monthly feed requirement: 2-10 bags</p>
+                            <p class="text-muted">Basic support package with flexible payment</p>
+                            <button class="btn btn-outline-custom mt-2">Learn More</button>
+                        </div>
+                    </div>
+                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                        <div class="supply-chain-item">
+                            <div class="chain-icon-large">
+                                <i class="bi bi-building"></i>
+                            </div>
+                            <h4>Medium Scale (501-5000 birds)</h4>
+                            <p>Monthly feed requirement: 10-100 bags</p>
+                            <p class="text-muted">Priority delivery & bulk discount</p>
+                            <button class="btn btn-outline-custom mt-2">Learn More</button>
+                        </div>
+                    </div>
+                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                        <div class="supply-chain-item">
+                            <div class="chain-icon-large">
+                                <i class="bi bi-building-check"></i>
+                            </div>
+                            <h4>Large Scale (5000+ birds)</h4>
+                            <p>Monthly feed requirement: 100+ bags</p>
+                            <p class="text-muted">Dedicated supply & credit facilities</p>
+                            <button class="btn btn-outline-custom mt-2">Learn More</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Farms & Farmers Tab -->
+            <div class="tab-pane fade" id="farms" role="tabpanel">
+                <div class="row mb-4">
+                    <div class="col-md-8">
+                        <div class="filter-section">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control form-control-custom" placeholder="Search farms...">
+                                </div>
+                                <div class="col-md-6">
+                                    <select class="form-select form-select-custom">
+                                        <option value="">Filter by State</option>
+                                        <option value="oyo">Oyo State</option>
+                                        <option value="lagos">Lagos</option>
+                                        <option value="abuja">Abuja</option>
+                                        <option value="kano">Kano</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-end">
+                        <button class="btn btn-primary-custom" data-bs-toggle="modal" data-bs-target="#registerFarmModal">
+                            <i class="bi bi-plus-circle me-2"></i>Register Farm
+                        </button>
+                    </div>
+                </div>
+
+                <div class="gallery-grid">
+                    <!-- Farm Card 1 -->
+                    <div class="directory-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="card-image-wrapper">
+                            <img src="https://via.placeholder.com/400x300/28A745/FFFFFF?text=Adeyemi+Farms" alt="Farm" class="card-image">
+                            <span class="card-badge">Capacity: 10,000</span>
+                        </div>
+                        <div class="card-body-custom">
+                            <h3 class="card-title-custom">Adeyemi Poultry Farms</h3>
+                            <div class="card-meta">
+                                <div class="meta-item">
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                    <span>Ibadan, Oyo State</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="bi bi-person"></i>
+                                    <span>Mr. Olumide Adeyemi</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="bi bi-phone"></i>
+                                    <span>+234 803 XXX XXXX</span>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Current Stock:</strong>
+                                <ul class="list-unstyled mt-2">
+                                    <li><i class="bi bi-check-circle text-success me-2"></i>5,000 Broilers (6 weeks)</li>
+                                    <li><i class="bi bi-check-circle text-success me-2"></i>2,000 Layers (18 weeks)</li>
+                                </ul>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-success">Verified</span>
+                                <button class="btn btn-primary-custom">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Farm Card 2 -->
+                    <div class="directory-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="card-image-wrapper">
+                            <img src="https://via.placeholder.com/400x300/FFC107/1A1A2E?text=Nwosu+Poultry" alt="Farm" class="card-image">
+                            <span class="card-badge">Capacity: 7,500</span>
+                        </div>
+                        <div class="card-body-custom">
+                            <h3 class="card-title-custom">Nwosu Poultry Ltd</h3>
+                            <div class="card-meta">
+                                <div class="meta-item">
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                    <span>Lagos State</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="bi bi-person"></i>
+                                    <span>Mrs. Chioma Nwosu</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="bi bi-phone"></i>
+                                    <span>+234 805 XXX XXXX</span>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Current Stock:</strong>
+                                <ul class="list-unstyled mt-2">
+                                    <li><i class="bi bi-check-circle text-success me-2"></i>3,200 Layers (Point of Lay)</li>
+                                    <li><i class="bi bi-check-circle text-success me-2"></i>1,500 Broilers (4 weeks)</li>
+                                </ul>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-success">Verified</span>
+                                <button class="btn btn-primary-custom">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Farm Card 3 -->
+                    <div class="directory-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="card-image-wrapper">
+                            <img src="https://via.placeholder.com/400x300/DC3545/FFFFFF?text=Bello+Farms" alt="Farm" class="card-image">
+                            <span class="card-badge">Capacity: 15,000</span>
+                        </div>
+                        <div class="card-body-custom">
+                            <h3 class="card-title-custom">Bello Integrated Farms</h3>
+                            <div class="card-meta">
+                                <div class="meta-item">
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                    <span>Kano State</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="bi bi-person"></i>
+                                    <span>Alhaji Ibrahim Bello</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="bi bi-phone"></i>
+                                    <span>+234 807 XXX XXXX</span>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Current Stock:</strong>
+                                <ul class="list-unstyled mt-2">
+                                    <li><i class="bi bi-check-circle text-success me-2"></i>8,000 Broilers (8 weeks)</li>
+                                    <li><i class="bi bi-check-circle text-success me-2"></i>3,000 Cockerels (12 weeks)</li>
+                                </ul>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-success">Verified</span>
+                                <button class="btn btn-primary-custom">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slaughter Houses Tab -->
+            <div class="tab-pane fade" id="slaughter" role="tabpanel">
+                <div class="row mb-4">
+                    <div class="col-md-12 text-end">
+                        <button class="btn btn-primary-custom" data-bs-toggle="modal" data-bs-target="#registerSlaughterModal">
+                            <i class="bi bi-plus-circle me-2"></i>Register Slaughterhouse
+                        </button>
+                    </div>
+                </div>
+
+                <div class="gallery-grid">
+                    <!-- Slaughterhouse Card 1 -->
+                    <div class="directory-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="card-image-wrapper">
+                            <img src="https://via.placeholder.com/400x300/FF6B00/FFFFFF?text=Modern+Slaughterhouse" alt="Slaughterhouse" class="card-image">
+                            <span class="card-badge">500 birds/day</span>
+                        </div>
+                        <div class="card-body-custom">
+                            <h3 class="card-title-custom">Ibadan Modern Slaughterhouse</h3>
+                            <div class="card-meta">
+                                <div class="meta-item">
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                    <span>Ibadan, Oyo State</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="bi bi-clock"></i>
+                                    <span>Mon-Sat: 6AM-6PM</span>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Services:</strong>
+                                <ul class="list-unstyled mt-2">
+                                    <li><i class="bi bi-check-circle text-success me-2"></i>Hygienic Processing</li>
+                                    <li><i class="bi bi-check-circle text-success me-2"></i>Cold Storage</li>
+                                    <li><i class="bi bi-check-circle text-success me-2"></i>Packaging</li>
+                                    <li><i class="bi bi-check-circle text-success me-2"></i>Quality Certification</li>
+                                </ul>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="card-price">₦300/bird</div>
+                                <button class="btn btn-primary-custom" data-bs-toggle="modal" data-bs-target="#bookSlaughterModal">
+                                    <i class="bi bi-calendar-check me-2"></i>Book Slot
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slaughterhouse Card 2 -->
+                    <div class="directory-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="card-image-wrapper">
+                            <img src="https://via.placeholder.com/400x300/FFC107/1A1A2E?text=Lagos+Processing" alt="Slaughterhouse" class="card-image">
+                            <span class="card-badge">1000 birds/day</span>
+                        </div>
+                        <div class="card-body-custom">
+                            <h3 class="card-title-custom">Lagos Poultry Processing</h3>
+                            <div class="card-meta">
+                                <div class="meta-item">
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                    <span>Lagos State</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="bi bi-clock"></i>
+                                    <span>Mon-Sun: 24 Hours</span>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Services:</strong>
+                                <ul class="list-unstyled mt-2">
+                                    <li><i class="bi bi-check-circle text-success me-2"></i>Automated Processing</li>
+                                    <li><i class="bi bi-check-circle text-success me-2"></i>Freezing & Storage</li>
+                                    <li><i class="bi bi-check-circle text-success me-2"></i>Distribution</li>
+                                    <li><i class="bi bi-check-circle text-success me-2"></i>Veterinary Inspection</li>
+                                </ul>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="card-price">₦350/bird</div>
+                                <button class="btn btn-primary-custom" data-bs-toggle="modal" data-bs-target="#bookSlaughterModal">
+                                    <i class="bi bi-calendar-check me-2"></i>Book Slot
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Frozen Chicken Tab -->
+            <div class="tab-pane fade" id="frozen" role="tabpanel">
+                <div class="row mb-4">
+                    <div class="col-md-12">
+                        <div class="filter-section">
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control form-control-custom" placeholder="Search products...">
+                                </div>
+                                <div class="col-md-4">
+                                    <select class="form-select form-select-custom">
+                                        <option value="">Product Type</option>
+                                        <option value="whole">Whole Chicken</option>
+                                        <option value="parts">Chicken Parts</option>
+                                        <option value="eggs">Eggs</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <select class="form-select form-select-custom">
+                                        <option value="">Location</option>
+                                        <option value="ibadan">Ibadan</option>
+                                        <option value="lagos">Lagos</option>
+                                        <option value="abuja">Abuja</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-grid">
+                    <!-- Product Card 1 -->
+                    <div class="directory-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="card-image-wrapper">
+                            <img src="https://via.placeholder.com/400x300/FF6B00/FFFFFF?text=Whole+Chicken" alt="Product" class="card-image">
+                            <span class="card-badge">In Stock</span>
+                        </div>
+                        <div class="card-body-custom">
+                            <h3 class="card-title-custom">BCF Whole Chicken Plus</h3>
+                            <div class="card-meta">
+                                <div class="meta-item">
+                                    <i class="bi bi-box"></i>
+                                    <span>1.5kg - 2.5kg</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                    <span>Ibadan</span>
+                                </div>
+                            </div>
+                            <p class="text-muted mb-3">Complete chicken with neck, legs, head, gizzard, liver and heart. Neatly dressed and packaged.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="card-price">₦3,500/bird</div>
+                                <button class="btn btn-primary-custom" data-bs-toggle="modal" data-bs-target="#orderModal">
+                                    <i class="bi bi-cart-plus me-2"></i>Order
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 2 -->
+                    <div class="directory-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="card-image-wrapper">
+                            <img src="https://via.placeholder.com/400x300/FFC107/1A1A2E?text=Chicken+Parts" alt="Product" class="card-image">
+                            <span class="card-badge">In Stock</span>
+                        </div>
+                        <div class="card-body-custom">
+                            <h3 class="card-title-custom">Chicken Parts (Mixed)</h3>
+                            <div class="card-meta">
+                                <div class="meta-item">
+                                    <i class="bi bi-box"></i>
+                                    <span>Per kg</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                    <span>Lagos</span>
+                                </div>
+                            </div>
+                            <p class="text-muted mb-3">Wings, thighs, breasts, drumsticks. Frozen and packaged hygienically.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="card-price">₦2,800/kg</div>
+                                <button class="btn btn-primary-custom" data-bs-toggle="modal" data-bs-target="#orderModal">
+                                    <i class="bi bi-cart-plus me-2"></i>Order
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 3 -->
+                    <div class="directory-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="card-image-wrapper">
+                            <img src="https://via.placeholder.com/400x300/28A745/FFFFFF?text=Fresh+Eggs" alt="Product" class="card-image">
+                            <span class="card-badge">In Stock</span>
+                        </div>
+                        <div class="card-body-custom">
+                            <h3 class="card-title-custom">Fresh Table Eggs</h3>
+                            <div class="card-meta">
+                                <div class="meta-item">
+                                    <i class="bi bi-box"></i>
+                                    <span>Crate (30 eggs)</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                    <span>Abuja</span>
+                                </div>
+                            </div>
+                            <p class="text-muted mb-3">Fresh farm eggs from healthy layers. Grade A quality.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="card-price">₦2,200/crate</div>
+                                <button class="btn btn-primary-custom" data-bs-toggle="modal" data-bs-target="#orderModal">
+                                    <i class="bi bi-cart-plus me-2"></i>Order
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Registration Tab -->
+            <div class="tab-pane fade" id="register" role="tabpanel">
+                <div class="registration-section">
+                    <div class="row">
+                        <div class="col-lg-10 mx-auto">
+                            <div class="form-card" data-aos="fade-up">
+                                <h2 class="form-section-title">Register New Entity</h2>
+                                
+                                <form id="registrationForm">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group-custom">
+                                                <label class="form-label-custom required-field">Registration Type</label>
+                                                <select class="form-select form-select-custom" id="regType" onchange="toggleRegistrationFields()" required>
+                                                    <option value="">Select Type</option>
+                                                    <option value="farmer">Farm & Farmer</option>
+                                                    <option value="slaughterhouse">Slaughter House</option>
+                                                    <option value="feed_depot">Feed Depot</option>
+                                                    <option value="pickup_point">Feed Pickup Point</option>
+                                                    <option value="investor">Investor</option>
+                                                    <option value="distributor">Distributor</option>
+                                                    <option value="customer">Customer</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group-custom">
+                                                <label class="form-label-custom required-field">Business/Farm Name</label>
+                                                <input type="text" class="form-control form-control-custom" placeholder="Enter name" required>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group-custom">
+                                                <label class="form-label-custom required-field">Contact Person</label>
+                                                <input type="text" class="form-control form-control-custom" placeholder="Full name" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group-custom">
+                                                <label class="form-label-custom required-field">Phone Number</label>
+                                                <input type="tel" class="form-control form-control-custom" placeholder="+234 XXX XXX XXXX" required>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group-custom">
+                                                <label class="form-label-custom required-field">Email Address</label>
+                                                <input type="email" class="form-control form-control-custom" placeholder="email@example.com" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group-custom">
+                                                <label class="form-label-custom required-field">State</label>
+                                                <select class="form-select form-select-custom" required>
+                                                    <option value="">Select State</option>
+                                                    <option value="abuja">Abuja FCT</option>
+                                                    <option value="abia">Abia</option>
+                                                    <option value="adamawa">Adamawa</option>
+                                                    <option value="akwa_ibom">Akwa Ibom</option>
+                                                    <option value="anambra">Anambra</option>
+                                                    <option value="bauchi">Bauchi</option>
+                                                    <option value="bayelsa">Bayelsa</option>
+                                                    <option value="benue">Benue</option>
+                                                    <option value="borno">Borno</option>
+                                                    <option value="cross_river">Cross River</option>
+                                                    <option value="delta">Delta</option>
+                                                    <option value="ebonyi">Ebonyi</option>
+                                                    <option value="edo">Edo</option>
+                                                    <option value="ekiti">Ekiti</option>
+                                                    <option value="enugu">Enugu</option>
+                                                    <option value="gombe">Gombe</option>
+                                                    <option value="imo">Imo</option>
+                                                    <option value="jigawa">Jigawa</option>
+                                                    <option value="kaduna">Kaduna</option>
+                                                    <option value="kano">Kano</option>
+                                                    <option value="katsina">Katsina</option>
+                                                    <option value="kebbi">Kebbi</option>
+                                                    <option value="kogi">Kogi</option>
+                                                    <option value="kwara">Kwara</option>
+                                                    <option value="lagos">Lagos</option>
+                                                    <option value="nasarawa">Nasarawa</option>
+                                                    <option value="niger">Niger</option>
+                                                    <option value="ogun">Ogun</option>
+                                                    <option value="ondo">Ondo</option>
+                                                    <option value="osun">Osun</option>
+                                                    <option value="oyo">Oyo</option>
+                                                    <option value="plateau">Plateau</option>
+                                                    <option value="rivers">Rivers</option>
+                                                    <option value="sokoto">Sokoto</option>
+                                                    <option value="taraba">Taraba</option>
+                                                    <option value="yobe">Yobe</option>
+                                                    <option value="zamfara">Zamfara</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group-custom">
+                                        <label class="form-label-custom required-field">Complete Address</label>
+                                        <textarea class="form-control form-control-custom" rows="3" placeholder="Enter full address" required></textarea>
+                                    </div>
+
+                                    <!-- Farmer Specific Fields -->
+                                    <div id="farmerFields" class="registration-fields" style="display: none;">
+                                        <h4 class="mb-3 mt-4">Farm Details</h4>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group-custom">
+                                                    <label class="form-label-custom">Farm Capacity (Number of Birds)</label>
+                                                    <input type="number" class="form-control form-control-custom" placeholder="e.g., 5000">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group-custom">
+                                                    <label class="form-label-custom">Current Stock</label>
+                                                    <input type="number" class="form-control form-control-custom" placeholder="Current number of birds">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group-custom">
+                                                    <label class="form-label-custom">Bird Type</label>
+                                                    <select class="form-select form-select-custom">
+                                                        <option value="">Select Type</option>
+                                                        <option value="broiler">Broiler</option>
+                                                        <option value="layer">Layer</option>
+                                                        <option value="both">Both</option>
+                                                        <option value="other">Other</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group-custom">
+                                                    <label class="form-label-custom">Years of Experience</label>
+                                                    <input type="number" class="form-control form-control-custom" placeholder="Years">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Slaughterhouse Specific Fields -->
+                                    <div id="slaughterhouseFields" class="registration-fields" style="display: none;">
+                                        <h4 class="mb-3 mt-4">Slaughterhouse Details</h4>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group-custom">
+                                                    <label class="form-label-custom">Daily Processing Capacity</label>
+                                                    <input type="number" class="form-control form-control-custom" placeholder="Number of birds per day">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group-custom">
+                                                    <label class="form-label-custom">Operating Hours</label>
+                                                    <input type="text" class="form-control form-control-custom" placeholder="e.g., Mon-Sat: 6AM-6PM">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Feed Depot Specific Fields -->
+                                    <div id="feedDepotFields" class="registration-fields" style="display: none;">
+                                        <h4 class="mb-3 mt-4">Feed Depot Details</h4>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group-custom">
+                                                    <label class="form-label-custom">Storage Capacity (Tons)</label>
+                                                    <input type="number" class="form-control form-control-custom" placeholder="Storage capacity">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group-custom">
+                                                    <label class="form-label-custom">Current Stock (Tons)</label>
+                                                    <input type="number" class="form-control form-control-custom" placeholder="Current stock">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group-custom mt-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="termsCheck" required>
+                                            <label class="form-check-label" for="termsCheck">
+                                                I agree to the <a href="#" class="text-primary">Terms and Conditions</a> and <a href="#" class="text-primary">Privacy Policy</a>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="text-center mt-4">
+                                        <button type="submit" class="btn btn-primary-custom btn-lg">
+                                            <i class="bi bi-check-circle me-2"></i>Submit Registration
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Register Modal -->
+    <div class="modal fade" id="quickRegisterModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-content-custom">
+                <div class="modal-header modal-header-custom">
+                    <h5 class="modal-title modal-title-custom">Quick Registration</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body modal-body-custom">
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <div class="quick-action-card" onclick="selectQuickRegister('farmer')">
+                                <div class="quick-action-icon">
+                                    <i class="bi bi-house-door"></i>
+                                </div>
+                                <h6>Farm/Farmer</h6>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="quick-action-card" onclick="selectQuickRegister('slaughterhouse')">
+                                <div class="quick-action-icon">
+                                    <i class="bi bi-scissors"></i>
+                                </div>
+                                <h6>Slaughterhouse</h6>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="quick-action-card" onclick="selectQuickRegister('feed_depot')">
+                                <div class="quick-action-icon">
+                                    <i class="bi bi-cart-check"></i>
+                                </div>
+                                <h6>Feed Depot</h6>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="quick-action-card" onclick="selectQuickRegister('investor')">
+                                <div class="quick-action-icon">
+                                    <i class="bi bi-briefcase"></i>
+                                </div>
+                                <h6>Investor</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Book Bird Modal -->
+    <div class="modal fade" id="bookBirdModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-content-custom">
+                <div class="modal-header modal-header-custom">
+                    <h5 class="modal-title modal-title-custom">Book Birds</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body modal-body-custom">
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Number of Birds</label>
+                            <input type="number" class="form-control form-control-custom" placeholder="Enter quantity" min="1">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Preferred Delivery Date</label>
+                            <input type="date" class="form-control form-control-custom">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Delivery Address</label>
+                            <textarea class="form-control form-control-custom" rows="3" placeholder="Enter delivery address"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Additional Notes</label>
+                            <textarea class="form-control form-control-custom" rows="2" placeholder="Any special requirements"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary-custom w-100">
+                            <i class="bi bi-check-circle me-2"></i>Confirm Booking
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Book Feed Modal -->
+    <div class="modal fade" id="bookFeedModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-content-custom">
+                <div class="modal-header modal-header-custom">
+                    <h5 class="modal-title modal-title-custom">Book Feed Supply</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body modal-body-custom">
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Feed Type</label>
+                            <select class="form-select form-select-custom">
+                                <option value="">Select feed type</option>
+                                <option value="broiler_starter">Broiler Starter</option>
+                                <option value="broiler_finisher">Broiler Finisher</option>
+                                <option value="layer_mash">Layer Mash</option>
+                                <option value="chick_mash">Chick Mash</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Quantity (Bags)</label>
+                            <input type="number" class="form-control form-control-custom" placeholder="Number of bags" min="1">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Delivery/Pickup Date</label>
+                            <input type="date" class="form-control form-control-custom">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Delivery Method</label>
+                            <select class="form-select form-select-custom">
+                                <option value="delivery">Home Delivery</option>
+                                <option value="pickup">Pickup from Depot</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary-custom w-100">
+                            <i class="bi bi-check-circle me-2"></i>Confirm Order
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Book Slaughter Modal -->
+    <div class="modal fade" id="bookSlaughterModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-content-custom">
+                <div class="modal-header modal-header-custom">
+                    <h5 class="modal-title modal-title-custom">Book Slaughterhouse Slot</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body modal-body-custom">
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Number of Birds</label>
+                            <input type="number" class="form-control form-control-custom" placeholder="Enter quantity" min="1">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Preferred Date</label>
+                            <input type="date" class="form-control form-control-custom">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Preferred Time</label>
+                            <input type="time" class="form-control form-control-custom">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Special Requirements</label>
+                            <textarea class="form-control form-control-custom" rows="2" placeholder="Packaging, certification, etc."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary-custom w-100">
+                            <i class="bi bi-check-circle me-2"></i>Book Slot
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Modal -->
+    <div class="modal fade" id="orderModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-content-custom">
+                <div class="modal-header modal-header-custom">
+                    <h5 class="modal-title modal-title-custom">Place Order</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body modal-body-custom">
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Quantity</label>
+                            <input type="number" class="form-control form-control-custom" placeholder="Enter quantity" min="1">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Delivery Address</label>
+                            <textarea class="form-control form-control-custom" rows="3" placeholder="Enter delivery address"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Phone Number</label>
+                            <input type="tel" class="form-control form-control-custom" placeholder="+234 XXX XXX XXXX">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Payment Method</label>
+                            <select class="form-select form-select-custom">
+                                <option value="card">Card Payment</option>
+                                <option value="transfer">Bank Transfer</option>
+                                <option value="cod">Cash on Delivery</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary-custom w-100">
+                            <i class="bi bi-check-circle me-2"></i>Place Order
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Farm Modal -->
+    <div class="modal fade" id="registerFarmModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content modal-content-custom">
+                <div class="modal-header modal-header-custom">
+                    <h5 class="modal-title modal-title-custom">Register Your Farm</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body modal-body-custom">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold">Farm Name</label>
+                                <input type="text" class="form-control form-control-custom" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold">Farmer Name</label>
+                                <input type="text" class="form-control form-control-custom" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold">Phone Number</label>
+                                <input type="tel" class="form-control form-control-custom" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold">Email</label>
+                                <input type="email" class="form-control form-control-custom" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Farm Address</label>
+                            <textarea class="form-control form-control-custom" rows="2" required></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold">Farm Capacity</label>
+                                <input type="number" class="form-control form-control-custom" placeholder="Number of birds">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold">Bird Type</label>
+                                <select class="form-select form-select-custom">
+                                    <option value="broiler">Broiler</option>
+                                    <option value="layer">Layer</option>
+                                    <option value="both">Both</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary-custom w-100">
+                            <i class="bi bi-check-circle me-2"></i>Submit Registration
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Slaughterhouse Modal -->
+    <div class="modal fade" id="registerSlaughterModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content modal-content-custom">
+                <div class="modal-header modal-header-custom">
+                    <h5 class="modal-title modal-title-custom">Register Slaughterhouse</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body modal-body-custom">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold">Slaughterhouse Name</label>
+                                <input type="text" class="form-control form-control-custom" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold">Contact Person</label>
+                                <input type="text" class="form-control form-control-custom" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold">Phone Number</label>
+                                <input type="tel" class="form-control form-control-custom" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold">Email</label>
+                                <input type="email" class="form-control form-control-custom" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Address</label>
+                            <textarea class="form-control form-control-custom" rows="2" required></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold">Daily Capacity</label>
+                                <input type="number" class="form-control form-control-custom" placeholder="Birds per day">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold">Operating Hours</label>
+                                <input type="text" class="form-control form-control-custom" placeholder="e.g., 6AM-6PM">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary-custom w-100">
+                            <i class="bi bi-check-circle me-2"></i>Submit Registration
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4 class="footer-brand"><i class="bi bi-building me-2"></i>BCF</h4>
+                    <p>Transforming Nigeria's poultry industry through technology and trusted partnerships.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-2"><i class="bi bi-telephone-fill me-2"></i>+234 915 300 5424</p>
+                    <p class="mb-2"><i class="bi bi-envelope-fill me-2"></i>bodeclassicfoods@gmail.com</p>
+                    <p><i class="bi bi-geo-alt-fill me-2"></i>No. 116 Adegoke Adelabu way, Ibadan, Nigeria</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="mb-0">&copy; 2026 BCF Poultry Management Solution. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Leaflet JS for Maps -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <script>
+        // Initialize AOS Animation Library
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+        
+        // Theme Toggle Functionality
+        function toggleTheme() {
+            const html = document.documentElement;
+            const icon = document.getElementById('theme-icon');
+            
+            if (html.getAttribute('data-bs-theme') === 'light') {
+                html.setAttribute('data-bs-theme', 'dark');
+                icon.classList.remove('bi-moon-stars-fill');
+                icon.classList.add('bi-sun-fill');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                html.setAttribute('data-bs-theme', 'light');
+                icon.classList.remove('bi-sun-fill');
+                icon.classList.add('bi-moon-stars-fill');
+                localStorage.setItem('theme', 'light');
+            }
+        }
+        
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-bs-theme', savedTheme);
+        if (savedTheme === 'dark') {
+            document.getElementById('theme-icon').classList.remove('bi-moon-stars-fill');
+            document.getElementById('theme-icon').classList.add('bi-sun-fill');
+        }
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Initialize Map
+        function initMap() {
+            // Only initialize if map element exists and is visible
+            const mapElement = document.getElementById('map');
+            if (mapElement && mapElement.offsetParent !== null) {
+                const map = L.map('map').setView([7.3775, 3.9470], 6);
+                
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '© OpenStreetMap contributors'
+                }).addTo(map);
+                
+                // Add sample markers for pickup points
+                const pickupPoints = [
+                    {lat: 7.3775, lng: 3.9470, name: "Ibadan Central Depot"},
+                    {lat: 6.5244, lng: 3.3792, name: "Lagos Pickup Point"},
+                    {lat: 9.0765, lng: 7.3986, name: "Abuja Depot"},
+                    {lat: 12.0022, lng: 8.5919, name: "Kano Pickup Point"}
+                ];
+                
+                pickupPoints.forEach(point => {
+                    L.marker([point.lat, point.lng])
+                        .addTo(map)
+                        .bindPopup(point.name);
+                });
+            }
+        }
+        
+        // Initialize map when feed tab is shown
+        document.getElementById('feed-tab').addEventListener('shown.bs.tab', function() {
+            setTimeout(initMap, 300);
+        });
+        
+        // Toggle registration fields based on type
+        function toggleRegistrationFields() {
+            const regType = document.getElementById('regType').value;
+            
+            // Hide all specific fields
+            document.querySelectorAll('.registration-fields').forEach(field => {
+                field.style.display = 'none';
+            });
+            
+            // Show relevant fields
+            if (regType === 'farmer') {
+                document.getElementById('farmerFields').style.display = 'block';
+            } else if (regType === 'slaughterhouse') {
+                document.getElementById('slaughterhouseFields').style.display = 'block';
+            } else if (regType === 'feed_depot') {
+                document.getElementById('feedDepotFields').style.display = 'block';
+            }
+        }
+        
+        // Quick Register Modal Handler
+        function selectQuickRegister(type) {
+            // Close modal
+            const modal = bootstrap.Modal.getInstance(document.getElementById('quickRegisterModal'));
+            modal.hide();
+            
+            // Switch to register tab
+            const registerTab = document.getElementById('register-tab');
+            const tab = new bootstrap.Tab(registerTab);
+            tab.show();
+            
+            // Set the registration type
+            setTimeout(() => {
+                const regTypeSelect = document.getElementById('regType');
+                regTypeSelect.value = type;
+                toggleRegistrationFields();
+                
+                // Scroll to form
+                document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth' });
+            }, 300);
+        }
+        
+        // Form submissions
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Show success message
+                alert('Submission successful! We will review your information and contact you soon.');
+                
+                // Reset form
+                this.reset();
+                
+                // Close modal if in modal
+                const modal = bootstrap.Modal.getInstance(this.closest('.modal'));
+                if (modal) {
+                    modal.hide();
+                }
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Active nav link based on scroll
+        const sections = document.querySelectorAll('section[id]');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
