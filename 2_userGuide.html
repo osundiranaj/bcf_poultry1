@@ -1,0 +1,1771 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Platform Guide - BCF Poultry Management Solution | User Instructions</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #FF6B00;
+            --secondary-color: #FFC107;
+            --accent-color: #28A745;
+            --dark-color: #1A1A2E;
+            --light-bg: #F8F9FA;
+            --dark-bg: #0F0F1E;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+            overflow-x: hidden;
+            padding-top: 76px;
+        }
+        
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 100px;
+            right: 30px;
+            z-index: 1000;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+        }
+        
+        .theme-toggle:hover {
+            transform: rotate(180deg);
+        }
+        
+        /* Navigation */
+        .navbar {
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+            padding: 1rem 0;
+        }
+        
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.95) !important;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+        
+        [data-bs-theme="dark"] .navbar.scrolled {
+            background: rgba(15, 15, 30, 0.95) !important;
+        }
+        
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            margin: 0 0.5rem;
+            position: relative;
+            transition: color 0.3s;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transition: width 0.3s;
+        }
+        
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+        
+        .nav-link.active {
+            color: var(--primary-color) !important;
+        }
+        
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, rgba(255,107,0,0.1) 0%, rgba(255,193,7,0.1) 100%);
+            padding: 4rem 0 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        [data-bs-theme="dark"] .page-header {
+            background: linear-gradient(135deg, rgba(255,107,0,0.05) 0%, rgba(255,193,7,0.05) 100%);
+        }
+        
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .breadcrumb-custom {
+            background: transparent;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .breadcrumb-item a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        /* User Type Selector */
+        .user-type-selector {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+        }
+        
+        [data-bs-theme="dark"] .user-type-selector {
+            background: #1a1a2e;
+        }
+        
+        .user-type-btn {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 1rem;
+        }
+        
+        [data-bs-theme="dark"] .user-type-btn {
+            background: #2a2a3e;
+            border-color: #3a3a4e;
+        }
+        
+        .user-type-btn:hover, .user-type-btn.active {
+            border-color: var(--primary-color);
+            background: linear-gradient(135deg, rgba(255,107,0,0.1), rgba(255,193,7,0.1));
+            transform: translateY(-3px);
+        }
+        
+        .user-type-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 2rem;
+            color: white;
+        }
+        
+        .user-type-btn.active .user-type-icon {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        /* Content Sections */
+        .guide-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .guide-section.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .section-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+        
+        [data-bs-theme="dark"] .section-card {
+            background: #1a1a2e;
+        }
+        
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--primary-color);
+            display: inline-block;
+        }
+        
+        /* Benefits Grid */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .benefit-card {
+            background: linear-gradient(135deg, rgba(255,107,0,0.1), rgba(255,193,7,0.1));
+            border-radius: 15px;
+            padding: 1.5rem;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        [data-bs-theme="dark"] .benefit-card {
+            background: linear-gradient(135deg, rgba(255,107,0,0.05), rgba(255,193,7,0.05));
+        }
+        
+        .benefit-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .benefit-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Requirements Checklist */
+        .requirements-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .requirements-list li {
+            padding: 1rem 0;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+        
+        [data-bs-theme="dark"] .requirements-list li {
+            border-bottom-color: #2a2a3e;
+        }
+        
+        .requirements-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .req-icon {
+            width: 30px;
+            height: 30px;
+            background: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.9rem;
+        }
+        
+        .req-icon.optional {
+            background: #6c757d;
+        }
+        
+        .req-content h6 {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .req-content p {
+            margin: 0;
+            font-size: 0.95rem;
+            color: #6c757d;
+        }
+        
+        [data-bs-theme="dark"] .req-content p {
+            color: #adb5bd;
+        }
+        
+        /* Registration Steps */
+        .steps-container {
+            position: relative;
+            padding-left: 3rem;
+        }
+        
+        .steps-container::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 20px;
+            bottom: 20px;
+            width: 3px;
+            background: linear-gradient(180deg, var(--primary-color), var(--secondary-color));
+        }
+        
+        .step-item {
+            position: relative;
+            padding: 1.5rem 0 1.5rem 2rem;
+        }
+        
+        .step-number {
+            position: absolute;
+            left: -45px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            z-index: 2;
+        }
+        
+        .step-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .step-description {
+            color: #6c757d;
+            margin: 0;
+        }
+        
+        [data-bs-theme="dark"] .step-description {
+            color: #adb5bd;
+        }
+        
+        /* Platform Features */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .feature-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 15px;
+            transition: all 0.3s;
+        }
+        
+        [data-bs-theme="dark"] .feature-item {
+            background: #2a2a3e;
+        }
+        
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .feature-content h5 {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature-content p {
+            margin: 0;
+            font-size: 0.95rem;
+            color: #6c757d;
+        }
+        
+        [data-bs-theme="dark"] .feature-content p {
+            color: #adb5bd;
+        }
+        
+        /* FAQ Accordion */
+        .accordion-custom .accordion-item {
+            background: white;
+            border: none;
+            border-radius: 15px !important;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        [data-bs-theme="dark"] .accordion-custom .accordion-item {
+            background: #1a1a2e;
+        }
+        
+        .accordion-custom .accordion-button {
+            background: transparent;
+            font-weight: 600;
+            padding: 1.25rem 1.5rem;
+            box-shadow: none !important;
+        }
+        
+        [data-bs-theme="dark"] .accordion-custom .accordion-button {
+            color: white;
+        }
+        
+        .accordion-custom .accordion-button:not(.collapsed) {
+            background: linear-gradient(135deg, rgba(255,107,0,0.1), rgba(255,193,7,0.1));
+            color: var(--primary-color);
+        }
+        
+        .accordion-custom .accordion-button::after {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23FF6B00'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+        }
+        
+        .accordion-custom .accordion-body {
+            padding: 1rem 1.5rem 1.5rem;
+            color: #6c757d;
+        }
+        
+        [data-bs-theme="dark"] .accordion-custom .accordion-body {
+            color: #adb5bd;
+        }
+        
+        /* Resources Section */
+        .resource-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s;
+            border: 2px solid #e9ecef;
+            cursor: pointer;
+        }
+        
+        [data-bs-theme="dark"] .resource-card {
+            background: #1a1a2e;
+            border-color: #2a2a3e;
+        }
+        
+        .resource-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+        
+        .resource-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, rgba(255,107,0,0.1), rgba(255,193,7,0.1));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+        }
+        
+        .resource-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .resource-desc {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-bottom: 1rem;
+        }
+        
+        [data-bs-theme="dark"] .resource-desc {
+            color: #adb5bd;
+        }
+        
+        /* Video Tutorials */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .video-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+        
+        [data-bs-theme="dark"] .video-card {
+            background: #1a1a2e;
+        }
+        
+        .video-thumbnail {
+            position: relative;
+            height: 180px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .play-btn {
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .play-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .video-info {
+            padding: 1.5rem;
+        }
+        
+        .video-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .video-duration {
+            font-size: 0.85rem;
+            color: #6c757d;
+        }
+        
+        [data-bs-theme="dark"] .video-duration {
+            color: #adb5bd;
+        }
+        
+        /* Glossary */
+        .glossary-term {
+            padding: 1rem 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        [data-bs-theme="dark"] .glossary-term {
+            border-bottom-color: #2a2a3e;
+        }
+        
+        .glossary-term:last-child {
+            border-bottom: none;
+        }
+        
+        .term-name {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.25rem;
+        }
+        
+        .term-definition {
+            margin: 0;
+            font-size: 0.95rem;
+            color: #6c757d;
+        }
+        
+        [data-bs-theme="dark"] .term-definition {
+            color: #adb5bd;
+        }
+        
+        /* Support Section */
+        .support-card {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+        }
+        
+        .support-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .support-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .support-contact {
+            margin: 2rem 0;
+        }
+        
+        .support-contact-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        
+        .support-contact-item a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .support-contact-item a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Buttons */
+        .btn-primary-custom {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(255,107,0,0.3);
+        }
+        
+        .btn-primary-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255,107,0,0.4);
+            color: white;
+        }
+        
+        .btn-outline-custom {
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+            background: transparent;
+        }
+        
+        .btn-outline-custom:hover {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-color: transparent;
+            color: white;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 3rem 0 2rem;
+            margin-top: 5rem;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 2rem;
+            padding-top: 2rem;
+            text-align: center;
+            color: #6c757d;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .steps-container {
+                padding-left: 2rem;
+            }
+            
+            .steps-container::before {
+                left: 10px;
+            }
+            
+            .step-number {
+                left: -35px;
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+            
+            .user-type-selector {
+                padding: 1.5rem;
+            }
+            
+            .section-card {
+                padding: 2rem 1.5rem;
+            }
+        }
+        
+        /* Print Styles */
+        @media print {
+            .theme-toggle, .navbar, footer {
+                display: none !important;
+            }
+            
+            body {
+                padding-top: 0;
+                background: white;
+                color: black;
+            }
+            
+            .section-card, .user-type-selector {
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Theme">
+        <i class="bi bi-moon-stars-fill" id="theme-icon"></i>
+    </button>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-building me-2"></i>BCF
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="booking.html">Booking</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#events">Events</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="guide.html">Guide</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8" data-aos="fade-right">
+                    <h1 class="page-title">Platform User Guide</h1>
+                    <p class="lead mb-0">Complete instructions, benefits, and requirements for all BCF platform users</p>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb breadcrumb-custom">
+                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">User Guide</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg-4 text-lg-end mt-4 mt-lg-0" data-aos="fade-left">
+                    <button class="btn btn-primary-custom btn-lg" onclick="window.print()">
+                        <i class="bi bi-printer me-2"></i>Print Guide
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        
+        <!-- User Type Selector -->
+        <div class="user-type-selector" data-aos="fade-up">
+            <h3 class="text-center mb-4">Select Your User Type</h3>
+            <div class="row g-3">
+                <div class="col-lg-2 col-md-4 col-6">
+                    <div class="user-type-btn active" onclick="showGuide('farmer')" data-type="farmer">
+                        <div class="user-type-icon">
+                            <i class="bi bi-house-door"></i>
+                        </div>
+                        <h6>Farmers</h6>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-6">
+                    <div class="user-type-btn" onclick="showGuide('investor')" data-type="investor">
+                        <div class="user-type-icon">
+                            <i class="bi bi-briefcase"></i>
+                        </div>
+                        <h6>Investors</h6>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-6">
+                    <div class="user-type-btn" onclick="showGuide('feed_supplier')" data-type="feed_supplier">
+                        <div class="user-type-icon">
+                            <i class="bi bi-cart-check"></i>
+                        </div>
+                        <h6>Feed Suppliers</h6>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-6">
+                    <div class="user-type-btn" onclick="showGuide('slaughterhouse')" data-type="slaughterhouse">
+                        <div class="user-type-icon">
+                            <i class="bi bi-scissors"></i>
+                        </div>
+                        <h6>Slaughter Houses</h6>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-6">
+                    <div class="user-type-btn" onclick="showGuide('distributor')" data-type="distributor">
+                        <div class="user-type-icon">
+                            <i class="bi bi-truck"></i>
+                        </div>
+                        <h6>Distributors</h6>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-6">
+                    <div class="user-type-btn" onclick="showGuide('customer')" data-type="customer">
+                        <div class="user-type-icon">
+                            <i class="bi bi-person"></i>
+                        </div>
+                        <h6>Customers</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Farmer Guide -->
+        <div id="farmer-guide" class="guide-section active">
+            
+            <!-- Benefits -->
+            <div class="section-card" data-aos="fade-up">
+                <h2 class="section-title">🎯 Your Benefits as a Farmer</h2>
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="bi bi-cash-stack"></i>
+                        </div>
+                        <h4 class="benefit-title">Access to Funding</h4>
+                        <p>Get matched with verified investors for feed sponsorship and farm expansion without upfront capital.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="bi bi-cart-check"></i>
+                        </div>
+                        <h4 class="benefit-title">Guaranteed Feed Supply</h4>
+                        <p>Book quality feed from verified suppliers with flexible payment terms and delivery scheduling.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="bi bi-graph-up"></i>
+                        </div>
+                        <h4 class="benefit-title">Market Access</h4>
+                        <p>Connect directly with slaughterhouses, distributors, and customers for guaranteed sales.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="bi bi-shield-check"></i>
+                        </div>
+                        <h4 class="benefit-title">Risk Reduction</h4>
+                        <p>Track bird maturity, monitor feed consumption, and get alerts for optimal offloading timing.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="bi bi-receipt"></i>
+                        </div>
+                        <h4 class="benefit-title">Automated Payments</h4>
+                        <p>Receive timely payments from investors, buyers, and BCF with transparent transaction records.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="bi bi-lightbulb"></i>
+                        </div>
+                        <h4 class="benefit-title">Expert Support</h4>
+                        <p>Access poultry farming best practices, training resources, and technical support from BCF experts.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Responsibilities -->
+            <div class="section-card" data-aos="fade-up">
+                <h2 class="section-title">📋 Your Responsibilities</h2>
+                <ul class="requirements-list">
+                    <li>
+                        <div class="req-icon">✓</div>
+                        <div class="req-content">
+                            <h6>Maintain Accurate Records</h6>
+                            <p>Log bird counts, feed consumption, health status, and growth metrics regularly in the platform.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="req-icon">✓</div>
+                        <div class="req-content">
+                            <h6>Follow Quality Standards</h6>
+                            <p>Adhere to BCF poultry farming guidelines for bird welfare, hygiene, and feed management.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="req-icon">✓</div>
+                        <div class="req-content">
+                            <h6>Timely Updates</h6>
+                            <p>Update bird maturity status, availability for booking, and readiness for processing promptly.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="req-icon">✓</div>
+                        <div class="req-content">
+                            <h6>Communication</h6>
+                            <p>Respond to investor inquiries, booking requests, and BCF notifications within 24 hours.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="req-icon">✓</div>
+                        <div class="req-content">
+                            <h6>Compliance</h6>
+                            <p>Maintain necessary permits, veterinary certifications, and comply with local agricultural regulations.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="req-icon optional">○</div>
+                        <div class="req-content">
+                            <h6>Participate in Training</h6>
+                            <p>Attend optional BCF workshops and webinars to improve farming techniques and platform usage.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Requirements -->
+            <div class="section-card" data-aos="fade-up">
+                <h2 class="section-title">📝 Registration Requirements</h2>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5 class="mb-3">Mandatory Documents</h5>
+                        <ul class="requirements-list">
+                            <li>
+                                <div class="req-icon">✓</div>
+                                <div class="req-content">
+                                    <h6>Valid ID</h6>
+                                    <p>NIN, Voter's Card, Driver's License, or International Passport</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="req-icon">✓</div>
+                                <div class="req-content">
+                                    <h6>Proof of Address</h6>
+                                    <p>Utility bill or land documentation for farm location</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="req-icon">✓</div>
+                                <div class="req-content">
+                                    <h6>Bank Account</h6>
+                                    <p>Active Nigerian bank account for payment processing</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="req-icon">✓</div>
+                                <div class="req-content">
+                                    <h6>Phone & Email</h6>
+                                    <p>Verified mobile number and email address</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h5 class="mb-3">Farm Information</h5>
+                        <ul class="requirements-list">
+                            <li>
+                                <div class="req-icon">✓</div>
+                                <div class="req-content">
+                                    <h6>Farm Capacity</h6>
+                                    <p>Maximum number of birds your farm can accommodate</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="req-icon">✓</div>
+                                <div class="req-content">
+                                    <h6>Current Stock</h6>
+                                    <p>Number and type of birds currently on farm</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="req-icon optional">○</div>
+                                <div class="req-content">
+                                    <h6>Veterinary Certificate</h6>
+                                    <p>Health certification for existing flock (recommended)</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="req-icon optional">○</div>
+                                <div class="req-content">
+                                    <h6>Experience Level</h6>
+                                    <p>Years of poultry farming experience (for matching)</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Registration Steps -->
+            <div class="section-card" data-aos="fade-up">
+                <h2 class="section-title">🚀 Registration Steps</h2>
+                <div class="steps-container">
+                    <div class="step-item">
+                        <div class="step-number">1</div>
+                        <h4 class="step-title">Create Account</h4>
+                        <p class="step-description">Visit booking.html, click "Register Farm", and fill in your basic information (name, phone, email, location).</p>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">2</div>
+                        <h4 class="step-title">Verify Identity</h4>
+                        <p class="step-description">Upload your ID document and proof of address. BCF team will verify within 24-48 hours.</p>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">3</div>
+                        <h4 class="step-title">Complete Farm Profile</h4>
+                        <p class="step-description">Add farm details: capacity, bird types, current stock, facilities, and photos of your farm.</p>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">4</div>
+                        <h4 class="step-title">Set Preferences</h4>
+                        <p class="step-description">Configure your feed requirements, preferred investors, booking rules, and payment settings.</p>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">5</div>
+                        <h4 class="step-title">Get Approved</h4>
+                        <p class="step-description">After BCF review, your farm goes live on the directory. You'll receive a welcome email with next steps.</p>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">6</div>
+                        <h4 class="step-title">Start Using Platform</h4>
+                        <p class="step-description">List available birds, request feed supplies, accept investment offers, and manage your poultry business.</p>
+                    </div>
+                </div>
+                <div class="text-center mt-4">
+                    <a href="booking.html#register" class="btn btn-primary-custom btn-lg">
+                        <i class="bi bi-person-plus me-2"></i>Start Registration Now
+                    </a>
+                </div>
+            </div>
+
+            <!-- Platform Features -->
+            <div class="section-card" data-aos="fade-up">
+                <h2 class="section-title">🔧 Platform Features for Farmers</h2>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="bi bi-calendar-check"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h5>Bird Booking Management</h5>
+                            <p>List available birds, set pricing, manage bookings, and track reservation status in real-time.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="bi bi-cart-plus"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h5>Feed Supply Ordering</h5>
+                            <p>Browse feed suppliers, compare prices, place orders, and track delivery schedules.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="bi bi-graph-up-arrow"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h5>Growth Tracking Dashboard</h5>
+                            <p>Monitor bird weight gain, feed conversion ratio, and maturity progress with visual analytics.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="bi bi-wallet2"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h5>Payment Wallet</h5>
+                            <p>View transaction history, receive payments, request withdrawals, and manage finances.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="bi bi-bell"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h5>Smart Notifications</h5>
+                            <p>Get alerts for feed deliveries, booking confirmations, payment receipts, and maturity milestones.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="bi bi-chat-square-text"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h5>In-App Messaging</h5>
+                            <p>Communicate securely with investors, suppliers, buyers, and BCF support team.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ -->
+            <div class="section-card" data-aos="fade-up">
+                <h2 class="section-title">❓ Frequently Asked Questions</h2>
+                <div class="accordion accordion-custom" id="farmerFaq">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                How long does verification take?
+                            </button>
+                        </h2>
+                        <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#farmerFaq">
+                            <div class="accordion-body">
+                                Identity and farm verification typically takes 24-48 hours. You'll receive email and SMS notifications once approved.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                What fees do I pay as a farmer?
+                            </button>
+                        </h2>
+                        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#farmerFaq">
+                            <div class="accordion-body">
+                                Registration is free. BCF charges a small commission (3-5%) only on successful transactions (bird sales, feed orders). No monthly subscription fees.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                How do I receive payments?
+                            </button>
+                        </h2>
+                        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#farmerFaq">
+                            <div class="accordion-body">
+                                Payments are deposited directly to your registered bank account. You can also keep funds in your BCF wallet for quick feed purchases or reinvestment.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                                Can I work with multiple investors?
+                            </button>
+                        </h2>
+                        <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#farmerFaq">
+                            <div class="accordion-body">
+                                Yes! You can accept funding from multiple investors for different batches or farm expansions. The platform helps you manage each investment separately.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
+                                What if birds get sick or die?
+                            </button>
+                        </h2>
+                        <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#farmerFaq">
+                            <div class="accordion-body">
+                                Report health issues immediately through the platform. BCF provides access to veterinary support and insurance options. Losses are documented transparently for investor reporting.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Investor Guide (Hidden by default) -->
+        <div id="investor-guide" class="guide-section">
+            <div class="section-card" data-aos="fade-up">
+                <h2 class="section-title">🎯 Your Benefits as an Investor</h2>
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="bi bi-percent"></i>
+                        </div>
+                        <h4 class="benefit-title">Attractive ROI</h4>
+                        <p>Earn 15-30% returns on poultry investments with transparent tracking and regular profit distributions.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="bi bi-shield-check"></i>
+                        </div>
+                        <h4 class="benefit-title">Verified Farms</h4>
+                        <p>Invest only in BCF-vetted farmers with proven track records and quality standards.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="bi bi-eye"></i>
+                        </div>
+                        <h4 class="benefit-title">Real-Time Monitoring</h4>
+                        <p>Track your investments live: bird growth, feed usage, and projected returns via dashboard.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="bi bi-arrow-repeat"></i>
+                        </div>
+                        <h4 class="benefit-title">Flexible Terms</h4>
+                        <p>Choose short-term (8-12 weeks) or long-term investments with customizable amounts and risk levels.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card" data-aos="fade-up">
+                <h2 class="section-title">📋 Your Responsibilities</h2>
+                <ul class="requirements-list">
+                    <li>
+                        <div class="req-icon">✓</div>
+                        <div class="req-content">
+                            <h6>Due Diligence</h6>
+                            <p>Review farmer profiles, farm capacity, and historical performance before investing.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="req-icon">✓</div>
+                        <div class="req-content">
+                            <h6>Timely Funding</h6>
+                            <p>Disburse agreed investment amounts within the stipulated timeframe after matching.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="req-icon">✓</div>
+                        <div class="req-content">
+                            <h6>Monitor Progress</h6>
+                            <p>Regularly check investment dashboards and respond to farmer updates or requests.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="req-icon optional">○</div>
+                        <div class="req-content">
+                            <h6>Provide Guidance</h6>
+                            <p>Optional: Share business insights or connect farmers with additional resources.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="section-card" data-aos="fade-up">
+                <h2 class="section-title">📝 Registration Requirements</h2>
+                <ul class="requirements-list">
+                    <li>
+                        <div class="req-icon">✓</div>
+                        <div class="req-content">
+                            <h6>Valid ID & KYC</h6>
+                            <p>NIN, BVN, or International Passport with proof of address</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="req-icon">✓</div>
+                        <div class="req-content">
+                            <h6>Bank Verification</h6>
+                            <p>Active Nigerian bank account with transaction history</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="req-icon">✓</div>
+                        <div class="req-content">
+                            <h6>Investment Capacity</h6>
+                            <p>Minimum investment amount: ₦100,000 (varies by opportunity)</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="req-icon optional">○</div>
+                        <div class="req-content">
+                            <h6>Business Registration</h6>
+                            <p>For corporate investors: CAC registration documents</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="section-card" data-aos="fade-up">
+                <h2 class="section-title">🚀 Getting Started</h2>
+                <div class="steps-container">
+                    <div class="step-item">
+                        <div class="step-number">1</div>
+                        <h4 class="step-title">Register & Verify</h4>
+                        <p class="step-description">Complete investor registration on booking.html with KYC documents.</p>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">2</div>
+                        <h4 class="step-title">Set Investment Preferences</h4>
+                        <p class="step-description">Define your risk tolerance, preferred farm locations, investment amounts, and duration.</p>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">3</div>
+                        <h4 class="step-title">Browse Opportunities</h4>
+                        <p class="step-description">Explore verified farmer profiles, projected returns, and investment terms.</p>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">4</div>
+                        <h4 class="step-title">Fund & Match</h4>
+                        <p class="step-description">Select farmers to fund, agree on terms, and transfer investment capital securely.</p>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">5</div>
+                        <h4 class="step-title">Monitor & Earn</h4>
+                        <p class="step-description">Track bird growth via dashboard and receive profit distributions upon sales.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Other User Guides (Feed Supplier, Slaughterhouse, Distributor, Customer) -->
+        <!-- Similar structure for each - abbreviated for brevity -->
+        
+        <div id="feed_supplier-guide" class="guide-section">
+            <div class="section-card" data-aos="fade-up">
+                <h2 class="section-title">🎯 Benefits for Feed Suppliers</h2>
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <div class="benefit-icon"><i class="bi bi-graph-up"></i></div>
+                        <h4 class="benefit-title">Expanded Market Reach</h4>
+                        <p>Connect with hundreds of verified farmers across Nigeria without traditional sales costs.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon"><i class="bi bi-receipt"></i></div>
+                        <h4 class="benefit-title">Guaranteed Payments</h4>
+                        <p>Receive payments through BCF escrow system with reduced default risk.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon"><i class="bi bi-calendar-check"></i></div>
+                        <h4 class="benefit-title">Demand Forecasting</h4>
+                        <p>Access farmer booking data to plan production and inventory efficiently.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <a href="booking.html#register" class="btn btn-primary-custom">Register as Feed Supplier</a>
+            </div>
+        </div>
+
+        <div id="slaughterhouse-guide" class="guide-section">
+            <div class="section-card" data-aos="fade-up">
+                <h2 class="section-title">🎯 Benefits for Slaughter Houses</h2>
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <div class="benefit-icon"><i class="bi bi-calendar-week"></i></div>
+                        <h4 class="benefit-title">Advance Booking System</h4>
+                        <p>Manage processing slots efficiently with farmer bookings and capacity planning.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon"><i class="bi bi-truck"></i></div>
+                        <h4 class="benefit-title">Streamlined Logistics</h4>
+                        <p>Coordinate bird pickup, processing, and distribution through integrated platform tools.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon"><i class="bi bi-file-earmark-check"></i></div>
+                        <h4 class="benefit-title">Quality Documentation</h4>
+                        <p>Generate digital certificates, inspection reports, and compliance documentation easily.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="distributor-guide" class="guide-section">
+            <div class="section-card" data-aos="fade-up">
+                <h2 class="section-title">🎯 Benefits for Distributors</h2>
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <div class="benefit-icon"><i class="bi bi-geo-alt"></i></div>
+                        <h4 class="benefit-title">Nationwide Network</h4>
+                        <p>Access frozen chicken supply from multiple slaughterhouses across Nigeria.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon"><i class="bi bi-cart3"></i></div>
+                        <h4 class="benefit-title">Bulk Order Management</h4>
+                        <p>Place, track, and manage large orders with automated invoicing and delivery scheduling.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="customer-guide" class="guide-section">
+            <div class="section-card" data-aos="fade-up">
+                <h2 class="section-title">🎯 Benefits for Customers</h2>
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <div class="benefit-icon"><i class="bi bi-shield-check"></i></div>
+                        <h4 class="benefit-title">Quality Assurance</h4>
+                        <p>Buy frozen chicken and eggs from verified, hygienically processed sources.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon"><i class="bi bi-truck"></i></div>
+                        <h4 class="benefit-title">Nationwide Delivery</h4>
+                        <p>Order online and receive fresh products at your doorstep across Nigeria.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon"><i class="bi bi-tag"></i></div>
+                        <h4 class="benefit-title">Competitive Pricing</h4>
+                        <p>Direct farm-to-consumer model ensures fair prices without middleman markups.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <a href="booking.html#frozen" class="btn btn-primary-custom">Browse Products</a>
+            </div>
+        </div>
+
+        <!-- Platform Assets & Functionalities (Common to All) -->
+        <div class="section-card" data-aos="fade-up" style="display: block;">
+            <h2 class="section-title">🌐 Platform Assets & Functionalities</h2>
+            <div class="row">
+                <div class="col-lg-6">
+                    <h5 class="mb-3">Digital Assets</h5>
+                    <ul class="requirements-list">
+                        <li>
+                            <div class="req-icon"><i class="bi bi-app"></i></div>
+                            <div class="req-content">
+                                <h6>Web Platform</h6>
+                                <p>Responsive website accessible on desktop, tablet, and mobile devices</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="req-icon"><i class="bi bi-phone"></i></div>
+                            <div class="req-content">
+                                <h6>Mobile App (Coming Soon)</h6>
+                                <p>Native iOS and Android apps for on-the-go management</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="req-icon"><i class="bi bi-cloud"></i></div>
+                            <div class="req-content">
+                                <h6>Cloud Dashboard</h6>
+                                <p>Real-time analytics, reporting, and data backup</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="req-icon"><i class="bi bi-shield-lock"></i></div>
+                            <div class="req-content">
+                                <h6>Secure Payment Gateway</h6>
+                                <p>PCI-DSS compliant transactions with multiple payment options</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-6">
+                    <h5 class="mb-3">Core Functionalities</h5>
+                    <ul class="requirements-list">
+                        <li>
+                            <div class="req-icon"><i class="bi bi-people"></i></div>
+                            <div class="req-content">
+                                <h6>Multi-Stakeholder Matching</h6>
+                                <p>AI-powered algorithm connects farmers, investors, suppliers, and buyers</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="req-icon"><i class="bi bi-bar-chart"></i></div>
+                            <div class="req-content">
+                                <h6>Analytics & Reporting</h6>
+                                <p>Business intelligence tools for performance tracking and decision making</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="req-icon"><i class="bi bi-bell"></i></div>
+                            <div class="req-content">
+                                <h6>Smart Notifications</h6>
+                                <p>Automated alerts for bookings, payments, deadlines, and system updates</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="req-icon"><i class="bi bi-chat-dots"></i></div>
+                            <div class="req-content">
+                                <h6>In-App Communication</h6>
+                                <p>Secure messaging, video calls, and document sharing between users</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resources Section -->
+        <div class="section-card" data-aos="fade-up">
+            <h2 class="section-title">📚 Helpful Resources</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="resource-card">
+                        <div class="resource-icon">
+                            <i class="bi bi-file-pdf"></i>
+                        </div>
+                        <h4 class="resource-title">User Manuals</h4>
+                        <p class="resource-desc">Downloadable PDF guides for each user type with screenshots and step-by-step instructions.</p>
+                        <button class="btn btn-outline-custom btn-sm">Download</button>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="resource-card">
+                        <div class="resource-icon">
+                            <i class="bi bi-play-circle"></i>
+                        </div>
+                        <h4 class="resource-title">Video Tutorials</h4>
+                        <p class="resource-desc">Short video guides covering registration, booking, payments, and troubleshooting.</p>
+                        <button class="btn btn-outline-custom btn-sm">Watch Now</button>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="resource-card">
+                        <div class="resource-icon">
+                            <i class="bi bi-journal-text"></i>
+                        </div>
+                        <h4 class="resource-title">Best Practices Guide</h4>
+                        <p class="resource-desc">Expert tips for maximizing platform benefits and growing your poultry business.</p>
+                        <button class="btn btn-outline-custom btn-sm">Read Guide</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Video Tutorials Preview -->
+        <div class="section-card" data-aos="fade-up">
+            <h2 class="section-title">🎬 Quick Start Videos</h2>
+            <div class="video-grid">
+                <div class="video-card">
+                    <div class="video-thumbnail">
+                        <div class="play-btn">
+                            <i class="bi bi-play-fill"></i>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h5 class="video-title">Farmer Registration Walkthrough</h5>
+                        <p class="video-duration"><i class="bi bi-clock me-1"></i>4:32</p>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-thumbnail">
+                        <div class="play-btn">
+                            <i class="bi bi-play-fill"></i>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h5 class="video-title">How to Book Feed Supplies</h5>
+                        <p class="video-duration"><i class="bi bi-clock me-1"></i>3:15</p>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-thumbnail">
+                        <div class="play-btn">
+                            <i class="bi bi-play-fill"></i>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h5 class="video-title">Tracking Your Investments</h5>
+                        <p class="video-duration"><i class="bi bi-clock me-1"></i>5:08</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Glossary -->
+        <div class="section-card" data-aos="fade-up">
+            <h2 class="section-title">📖 Platform Glossary</h2>
+            <div class="glossary-term">
+                <div class="term-name">Bird Maturity Index</div>
+                <p class="term-definition">A calculated metric showing the growth progress of birds toward optimal processing weight.</p>
+            </div>
+            <div class="glossary-term">
+                <div class="term-name">Feed Conversion Ratio (FCR)</div>
+                <p class="term-definition">The amount of feed required to produce one kilogram of bird weight gain. Lower FCR = better efficiency.</p>
+            </div>
+            <div class="glossary-term">
+                <div class="term-name">Escrow Payment</div>
+                <p class="term-definition">Secure payment holding system where funds are released only after agreed conditions are met.</p>
+            </div>
+            <div class="glossary-term">
+                <div class="term-name">BCF Verification Badge</div>
+                <p class="term-definition">A trust indicator showing that a user, farm, or business has passed BCF's quality and compliance checks.</p>
+            </div>
+            <div class="glossary-term">
+                <div class="term-name">Investment Matching</div>
+                <p class="term-definition">The platform's algorithm that pairs investors with farmers based on risk profile, location, and investment goals.</p>
+            </div>
+        </div>
+
+        <!-- Support Section -->
+        <div class="support-card" data-aos="fade-up">
+            <div class="support-icon">
+                <i class="bi bi-headset"></i>
+            </div>
+            <h3 class="support-title">Need Help?</h3>
+            <p>Our support team is ready to assist you with registration, platform usage, or any technical issues.</p>
+            
+            <div class="support-contact">
+                <div class="support-contact-item">
+                    <i class="bi bi-telephone-fill"></i>
+                    <a href="tel:+2349153005424">+234 915 300 5424</a>
+                </div>
+                <div class="support-contact-item">
+                    <i class="bi bi-whatsapp"></i>
+                    <a href="https://wa.me/2349153005424">Chat on WhatsApp</a>
+                </div>
+                <div class="support-contact-item">
+                    <i class="bi bi-envelope-fill"></i>
+                    <a href="mailto:bodeclassicfoods@gmail.com">bodeclassicfoods@gmail.com</a>
+                </div>
+                <div class="support-contact-item">
+                    <i class="bi bi-geo-alt-fill"></i>
+                    <span>No. 116 Adegoke Adelabu way, Ibadan, Nigeria</span>
+                </div>
+            </div>
+            
+            <div class="mt-4">
+                <a href="index.html#contact" class="btn btn-light btn-lg me-2">
+                    <i class="bi bi-chat-dots-fill me-2"></i>Contact Support
+                </a>
+                <button class="btn btn-outline-light btn-lg" onclick="showGuide('farmer')">
+                    <i class="bi bi-arrow-left me-2"></i>Back to Guide
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4 class="footer-brand"><i class="bi bi-building me-2"></i>BCF</h4>
+                    <p>Transforming Nigeria's poultry industry through technology and trusted partnerships.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-2"><i class="bi bi-telephone-fill me-2"></i>+234 915 300 5424</p>
+                    <p class="mb-2"><i class="bi bi-envelope-fill me-2"></i>bodeclassicfoods@gmail.com</p>
+                    <p><i class="bi bi-geo-alt-fill me-2"></i>No. 116 Adegoke Adelabu way, Ibadan, Nigeria</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="mb-0">&copy; 2026 BCF Poultry Management Solution. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+        // Initialize AOS Animation Library
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+        
+        // Theme Toggle Functionality
+        function toggleTheme() {
+            const html = document.documentElement;
+            const icon = document.getElementById('theme-icon');
+            
+            if (html.getAttribute('data-bs-theme') === 'light') {
+                html.setAttribute('data-bs-theme', 'dark');
+                icon.classList.remove('bi-moon-stars-fill');
+                icon.classList.add('bi-sun-fill');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                html.setAttribute('data-bs-theme', 'light');
+                icon.classList.remove('bi-sun-fill');
+                icon.classList.add('bi-moon-stars-fill');
+                localStorage.setItem('theme', 'light');
+            }
+        }
+        
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-bs-theme', savedTheme);
+        if (savedTheme === 'dark') {
+            document.getElementById('theme-icon').classList.remove('bi-moon-stars-fill');
+            document.getElementById('theme-icon').classList.add('bi-sun-fill');
+        }
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Show specific user guide
+        function showGuide(userType) {
+            // Update active button
+            document.querySelectorAll('.user-type-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`.user-type-btn[data-type="${userType}"]`).classList.add('active');
+            
+            // Hide all guides
+            document.querySelectorAll('.guide-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show selected guide
+            document.getElementById(`${userType}-guide`).classList.add('active');
+            
+            // Scroll to top of guide
+            document.querySelector('.guide-section.active').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Video play button simulation
+        document.querySelectorAll('.play-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                alert('Video tutorial would play here. In production, this would open a video player or modal.');
+            });
+        });
+        
+        // Resource download simulation
+        document.querySelectorAll('.resource-card button').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                alert('Resource download would start here. In production, this would trigger a file download.');
+            });
+        });
+    </script>
+</body>
+</html>
